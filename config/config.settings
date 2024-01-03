@@ -1,0 +1,5 @@
+db.server=10.176.111.34
+db.database=MyTunesGroup3
+db.user=CSe2023a_e_12
+db.password=CSe2023aE12#23
+db.port=1433
