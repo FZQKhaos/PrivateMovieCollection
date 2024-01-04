@@ -23,6 +23,17 @@ public class Movie {
         categories = new ArrayList<>();
     }
 
+    public Movie(int id, double imdbRating, String title, String filePath) {
+        this.id = id;
+        this.imdbRating = imdbRating;
+        this.title = title;
+        this.filePath = filePath;
+
+        categories = new ArrayList<>();
+    }
+
+
+
     public int getId() {
         return id;
     }
