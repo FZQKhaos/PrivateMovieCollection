@@ -6,15 +6,15 @@ import java.util.List;
 
 public class Movie {
     private int id;
-    private String name;
+    private String title;
     private double rating;
     private String filePath;
     private Timestamp lastView;
     private List<Category> categories;
 
-    public Movie(int id, String name, double rating, String filePath) {
+    public Movie(int id, String title, double rating, String filePath) {
         this.id = id;
-        this.name = name;
+        this.title = title;
         this.rating = rating;
         this.filePath = filePath;
 
@@ -29,12 +29,12 @@ public class Movie {
         this.id = id;
     }
 
-    public String getName() {
-        return name;
+    public String getTitle() {
+        return title;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setTitle(String title) {
+        this.title = title;
     }
 
     public double getRating() {
@@ -73,6 +73,6 @@ public class Movie {
 
     @Override
     public String toString() {
-        return name + ", " + rating + ", " + filePath + ", " + lastView + ", " + categories;
+        return title + ", " + rating + ", " + filePath + ", " + lastView + ", " + categories;
     }
 }
