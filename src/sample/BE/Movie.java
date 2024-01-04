@@ -6,15 +6,16 @@ import java.util.List;
 
 public class Movie {
     private int id;
-    private double rating;
+    private double imdbRating;
+    private double userRating;
     private String title;
     private String filePath;
     private Timestamp lastView;
     private final List<Category> categories;
 
-    public Movie(int id, double rating, String title, String filePath, Timestamp lastView) {
+    public Movie(int id, double imdbRating, String title, String filePath, Timestamp lastView) {
         this.id = id;
-        this.rating = rating;
+        this.imdbRating = imdbRating;
         this.title = title;
         this.filePath = filePath;
         this.lastView = lastView;
@@ -30,12 +31,20 @@ public class Movie {
         this.id = id;
     }
 
-    public double getRating() {
-        return rating;
+    public double getImdbRating() {
+        return imdbRating;
     }
 
-    public void setRating(double rating) {
-        this.rating = rating;
+    public void setImdbRating(double imdbRating) {
+        this.imdbRating = imdbRating;
+    }
+
+    public double getUserRating() {
+        return userRating;
+    }
+
+    public void setUserRating(double userRating) {
+        this.userRating = userRating;
     }
 
     public String getTitle() {
@@ -74,6 +83,6 @@ public class Movie {
 
     @Override
     public String toString() {
-        return rating + ", " + title + ", " + filePath + ", " + lastView + ", " + categories;
+        return imdbRating + ", " + title + ", " + filePath + ", " + lastView + ", " + categories;
     }
 }
