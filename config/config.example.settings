@@ -1,5 +1,5 @@
-db.server=
-db.database=
-db.user=
-db.password=
-db.port=
+db.server=10.176.111.34
+db.database=123Movies
+db.user=CSe2023a_e_12
+db.password=CSe2023aE12#23
+db.port=1433
