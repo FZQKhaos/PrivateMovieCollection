@@ -10,7 +10,6 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-
 <AnchorPane prefHeight="257.0" prefWidth="381.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.GUI.Controller.NewMovieWindowController">
    <children>
       <VBox alignment="CENTER_LEFT" layoutX="51.0" layoutY="50.0" prefHeight="142.0" prefWidth="74.0" spacing="10.0">
@@ -60,8 +59,8 @@
       </VBox>
       <HBox alignment="CENTER" layoutX="71.0" layoutY="192.0" prefHeight="38.0" prefWidth="240.0" spacing="25.0">
          <children>
-            <Button mnemonicParsing="false" onAction="#onActionCancel" text="Cancel" />
             <Button mnemonicParsing="false" onAction="#onActionSave" text="Save" />
+            <Button mnemonicParsing="false" onAction="#onActionCancel" text="Cancel" />
          </children>
       </HBox>
    </children>
