@@ -1,5 +1,6 @@
 package sample.DAL;
 
+import com.microsoft.sqlserver.jdbc.SQLServerException;
 import sample.BE.Category;
 import sample.BE.Movie;
 
@@ -148,6 +149,38 @@ public class MovieDAO {
                 id = rs.getInt(1);
             }
             movie.addCategoryToMovie(category);
+        }
+    }
+
+    public List<Movie> getMoviesByCategory(Category category) throws Exception {
+        ArrayList<Movie> moviesByCategory = new ArrayList<>();
+        String sql = "SELECT * From dbo.Movie " +
+                     "JOIN dbo.CategoryMovie CM " +
+                     "on Movie.id = CM.MovieId " +
+                     "WHERE cm.CategoryId = ?;";
+
+        try (Connection conn = databaseConnector.getConnection();
+             PreparedStatement stmt = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS))
+        {
+            stmt.setInt(1, category.getId());
+
+            ResultSet rs = stmt.executeQuery();
+
+            // Loop through rows from the database result set
+            while (rs.next()) {
+
+                //Map DB row to Movie object
+                int id = rs.getInt("id");
+                double imdbrating = rs.getDouble("imdbrating");
+                double userrating = rs.getDouble("userrating");
+                String title = rs.getString("title");
+                String filepath = rs.getString("filepath");
+                Timestamp lastview = rs.getTimestamp("lastview");
+
+                Movie movie = new Movie(id, imdbrating, userrating, title, filepath, lastview);
+                moviesByCategory.add(movie);
+            }
+        return moviesByCategory;
         }
     }
 }

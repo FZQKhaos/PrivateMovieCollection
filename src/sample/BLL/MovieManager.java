@@ -21,7 +21,7 @@ public class MovieManager {
         return movieDAO.createMovie(newMovie);
     }
 
-    public void updateMovie(Movie selectedMovie) throws Exception{
+    public void updateMovie(Movie selectedMovie) throws Exception {
         movieDAO.updateMovie(selectedMovie);
     }
 

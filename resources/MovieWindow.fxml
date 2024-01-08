@@ -5,12 +5,19 @@
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.control.TextField?>
-<?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
 
-<AnchorPane prefHeight="453.0" prefWidth="642.0" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.GUI.Controller.MovieWindowController">
+<VBox xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.GUI.Controller.MovieWindowController">
    <children>
-      <TableView fx:id="tblMovies" layoutX="13.0" layoutY="53.0" prefHeight="342.0" prefWidth="614.0">
+      <HBox alignment="CENTER_LEFT" prefHeight="34.0" prefWidth="199.0" spacing="5.0" VBox.vgrow="ALWAYS">
+         <children>
+            <ComboBox prefWidth="150.0" promptText="Category" />
+            <Button mnemonicParsing="false" onAction="#onActionAddRemoveCategory" text="+/-" />
+            <TextField fx:id="txtSearchField" prefHeight="26.0" prefWidth="282.0" promptText="🔎 Search" />
+         </children>
+      </HBox>
+      <TableView fx:id="tblMovies" prefHeight="342.0" prefWidth="614.0" VBox.vgrow="ALWAYS">
         <columns>
           <TableColumn fx:id="colTitle" prefWidth="266.4000120162964" text="Title" />
           <TableColumn fx:id="colCategory" minWidth="0.0" prefWidth="133.5999755859375" text="Category(s)" />
@@ -18,23 +25,12 @@
             <TableColumn fx:id="colUR" prefWidth="109.59991455078125" text="User Rating" />
         </columns>
       </TableView>
-      <HBox alignment="CENTER_LEFT" layoutX="14.0" layoutY="401.0" prefHeight="34.0" prefWidth="199.0" spacing="20.0">
+      <HBox alignment="CENTER_LEFT" prefHeight="34.0" prefWidth="199.0" spacing="20.0" VBox.vgrow="ALWAYS">
          <children>
             <Button mnemonicParsing="false" onAction="#onActionNewMovie" text="New Movie" />
             <Button mnemonicParsing="false" onAction="#onActionRemoveMovie" text="Remove Movie" />
-         </children>
-      </HBox>
-      <HBox alignment="CENTER_LEFT" layoutX="13.0" layoutY="12.0" prefHeight="34.0" prefWidth="199.0" spacing="5.0">
-         <children>
-            <ComboBox prefWidth="150.0" promptText="Category" />
-            <Button mnemonicParsing="false" onAction="#onActionAddRemoveCategory" text="+/-" />
-         </children>
-      </HBox>
-      <HBox alignment="CENTER_RIGHT" layoutX="492.0" layoutY="401.0" prefHeight="34.0" prefWidth="134.0">
-         <children>
             <Button fx:id="EditRating" mnemonicParsing="false" onAction="#onActionAddEditUR" prefHeight="26.0" prefWidth="131.0" text="Add/Edit User Rating" />
          </children>
       </HBox>
-      <TextField fx:id="txtSearchField" layoutX="344.0" layoutY="16.0" prefHeight="26.0" prefWidth="282.0" promptText="🔎 Search" />
    </children>
-</AnchorPane>
+</VBox>
