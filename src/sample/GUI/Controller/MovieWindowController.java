@@ -53,6 +53,7 @@ public class MovieWindowController {
         Parent root = loader.load();
         Stage stage = new Stage();
         stage.setScene(new Scene(root));
+        stage.setResizable(false);
 
         stage.setTitle("New Movie");
         stage.show();
