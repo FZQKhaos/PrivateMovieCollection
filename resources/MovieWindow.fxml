@@ -12,10 +12,10 @@
    <children>
       <TableView fx:id="tblMovies" layoutX="13.0" layoutY="53.0" prefHeight="342.0" prefWidth="614.0">
         <columns>
-          <TableColumn prefWidth="266.4000120162964" text="Title" />
-          <TableColumn minWidth="0.0" prefWidth="133.5999755859375" text="Category(s)" />
-            <TableColumn prefWidth="104.79998779296875" text="Imdb Rating" />
-            <TableColumn prefWidth="109.59991455078125" text="User Rating" />
+          <TableColumn fx:id="colTitle" prefWidth="266.4000120162964" text="Title" />
+          <TableColumn fx:id="colCategory" minWidth="0.0" prefWidth="133.5999755859375" text="Category(s)" />
+            <TableColumn fx:id="colIR" prefWidth="104.79998779296875" text="Imdb Rating" />
+            <TableColumn fx:id="colUR" prefWidth="109.59991455078125" text="User Rating" />
         </columns>
       </TableView>
       <HBox alignment="CENTER_LEFT" layoutX="14.0" layoutY="401.0" prefHeight="34.0" prefWidth="199.0" spacing="20.0">

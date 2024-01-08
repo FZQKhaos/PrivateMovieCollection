@@ -1,5 +1,6 @@
 package sample.DAL;
 
+import sample.BE.Category;
 import sample.BE.Movie;
 
 import java.io.IOException;
@@ -29,13 +30,14 @@ public class MovieDAO {
                 //Map DB row to Movie object
                 int id = rs.getInt("id");
                 double imdbrating = rs.getDouble("imdbrating");
+                double userrating = rs.getDouble("userrating");
                 String title = rs.getString("title");
                 String filepath = rs.getString("filepath");
                 Timestamp lastview = rs.getTimestamp("lastview");
 
 
 
-                Movie movie = new Movie(id, imdbrating ,title, filepath, lastview);
+                Movie movie = new Movie(id, imdbrating, userrating, title, filepath, lastview);
                 allMovies.add(movie);
             }
             return allMovies;
@@ -125,6 +127,27 @@ public class MovieDAO {
         {
             ex.printStackTrace();
             throw new Exception("Could not delete movie", ex);
+        }
+    }
+
+    public void addCategoryToMovie(Movie movie, Category category) throws SQLException {
+        // SQL command
+        String sql = "INSERT INTO dbo.CategoryMovie (CategoryId, MovieId) VALUES (?, ?);";
+        try (Connection conn = databaseConnector.getConnection();
+             PreparedStatement stmt = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS))
+        {
+            stmt.setInt(1, category.getId());
+            stmt.setInt(2, movie.getId());
+
+            stmt.executeUpdate();
+
+            ResultSet rs = stmt.getGeneratedKeys();
+
+            int id = 0;
+            if (rs.next()) {
+                id = rs.getInt(1);
+            }
+            movie.addCategoryToMovie(category);
         }
     }
 }

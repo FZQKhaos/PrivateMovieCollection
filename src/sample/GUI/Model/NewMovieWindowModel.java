@@ -13,4 +13,8 @@ public class NewMovieWindowModel {
 
         movieManager = new MovieManager();
     }
+
+    public void createMovie(Movie movie) throws Exception {
+        movieManager.createNewMovie(movie);
+    }
 }

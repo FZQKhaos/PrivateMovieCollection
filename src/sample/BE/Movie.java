@@ -13,9 +13,10 @@ public class Movie {
     private Timestamp lastView;
     private final List<Category> categories;
 
-    public Movie(int id, double imdbRating, String title, String filePath, Timestamp lastView) {
+    public Movie(int id, double imdbRating, double userRating, String title, String filePath, Timestamp lastView) {
         this.id = id;
         this.imdbRating = imdbRating;
+        this.userRating = userRating;
         this.title = title;
         this.filePath = filePath;
         this.lastView = lastView;
@@ -90,6 +91,10 @@ public class Movie {
 
     public void deleteCategoryFromMovie(Category category) {
             categories.remove(category);
+    }
+
+    public Category getCategory() {
+        return categories.getFirst();
     }
 
     @Override

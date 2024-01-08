@@ -4,8 +4,10 @@ import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
+import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
+import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
 import javafx.scene.Scene;
 import javafx.fxml.FXMLLoader;
@@ -20,6 +22,10 @@ import java.util.List;
 public class MovieWindowController {
 
     @FXML
+    private TableColumn<Movie, String> colTitle, colCategory;
+    @FXML
+    private TableColumn<Movie, Double> colIR, colUR;
+    @FXML
     private TableView tblMovies;
     @FXML
     private Button EditRating;
@@ -27,16 +33,20 @@ public class MovieWindowController {
     private TextField txtSearchField;
     private MovieWindowModel movieWindowModel;
 
-    public MovieWindowController() throws IOException {
+    public MovieWindowController() throws Exception {
 
         movieWindowModel = new MovieWindowModel();
     }
 
     public void initialize()  {
         try {
-            List<Movie> movies = movieWindowModel.getAllMovies();
-            tblMovies.getItems().clear();
-            tblMovies.setItems(FXCollections.observableList(movies));
+            colTitle.setCellValueFactory(new PropertyValueFactory<>("title"));
+            colCategory.setCellValueFactory(new PropertyValueFactory<>("category"));
+            colIR.setCellValueFactory(new PropertyValueFactory<>("imdbRating"));
+            colUR.setCellValueFactory(new PropertyValueFactory<>("userRating"));
+
+            tblMovies.setItems(movieWindowModel.getObservableMovies());
+
 
         }
         catch(Exception e) {

@@ -7,7 +7,11 @@ import javafx.scene.control.TextField;
 import javafx.scene.control.Button;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
+import sample.BE.Movie;
+import sample.GUI.Model.NewMovieWindowModel;
+
 import java.io.File;
+import java.io.IOException;
 
 
 public class NewMovieWindowController {
@@ -21,6 +25,12 @@ public class NewMovieWindowController {
     @FXML
     private TextField txtRating, txtTitle, txtFile;
 
+    private NewMovieWindowModel newMovieWindowModel;
+
+    public NewMovieWindowController() throws IOException {
+
+        newMovieWindowModel = new NewMovieWindowModel();
+    }
 
     public void onActionChoose(ActionEvent actionEvent) {
         Stage stage = new Stage();
@@ -45,7 +55,7 @@ public class NewMovieWindowController {
         stage.close();
     }
 
-    public void onActionSave(ActionEvent actionEvent) {
+    public void onActionSave(ActionEvent actionEvent) throws Exception {
         //placeholder for create movie i movie model
         //movieModel.createMovie();
 
@@ -54,6 +64,7 @@ public class NewMovieWindowController {
         String file = txtFile.getText();
 
         //create new movie here
+        newMovieWindowModel.createMovie(new Movie(0, imdbrating, title, file));
 
         Stage stage = (Stage) btnCancel.getScene().getWindow();
         stage.close();
