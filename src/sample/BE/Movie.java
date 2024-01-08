@@ -11,7 +11,7 @@ public class Movie {
     private String title;
     private String filePath;
     private Timestamp lastView;
-    private final List<Category> categories;
+    private List<Category> categories;
 
     public Movie(int id, double imdbRating, double userRating, String title, String filePath, Timestamp lastView) {
         this.id = id;
@@ -22,6 +22,12 @@ public class Movie {
         this.lastView = lastView;
 
         categories = new ArrayList<>();
+    }
+
+    public Movie(double imdbRating, String title, String filePath){
+        this.imdbRating = imdbRating;
+        this.title = title;
+        this.filePath = filePath;
     }
 
     public Movie(int id, double imdbRating, String title, String filePath) {

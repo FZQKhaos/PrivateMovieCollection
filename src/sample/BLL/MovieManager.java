@@ -1,5 +1,6 @@
 package sample.BLL;
 
+import sample.BE.Category;
 import sample.BE.Movie;
 import sample.DAL.MovieDAO;
 
@@ -17,7 +18,7 @@ public class MovieManager {
         return movieDAO.getAllMovies();
     }
 
-    public Movie createNewMovie(Movie newMovie) throws Exception {
+    public Movie createMovie(Movie newMovie) throws Exception {
         return movieDAO.createMovie(newMovie);
     }
 
@@ -27,5 +28,13 @@ public class MovieManager {
 
     public void deleteMovie(Movie selectedMovie) throws Exception {
         movieDAO.deleteMovie(selectedMovie);
+    }
+
+    public void addCategoryToMovie(Movie movie, Category category) throws Exception {
+        movieDAO.addCategoryToMovie(movie, category);
+    }
+
+    public List<Movie> getMoviesByCategory(Category category) throws Exception {
+        return movieDAO.getMoviesByCategory(category);
     }
 }

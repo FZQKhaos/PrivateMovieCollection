@@ -1,8 +1,8 @@
 package sample.GUI.Controller;
 
-import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
@@ -13,13 +13,14 @@ import javafx.scene.Scene;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import sample.BE.Movie;
-import sample.GUI.Model.MovieWindowModel;
+import sample.GUI.Model.MovieModel;
 
 import java.io.IOException;
-import java.util.List;
+import java.net.URL;
+import java.util.ResourceBundle;
 
 
-public class MovieWindowController {
+public class MovieWindowController implements Initializable {
 
     @FXML
     private TableColumn<Movie, String> colTitle, colCategory;
@@ -31,27 +32,11 @@ public class MovieWindowController {
     private Button EditRating;
     @FXML
     private TextField txtSearchField;
-    private MovieWindowModel movieWindowModel;
+    private MovieModel movieWindowModel;
 
     public MovieWindowController() throws Exception {
 
-        movieWindowModel = new MovieWindowModel();
-    }
-
-    public void initialize()  {
-        try {
-            colTitle.setCellValueFactory(new PropertyValueFactory<>("title"));
-            colCategory.setCellValueFactory(new PropertyValueFactory<>("category"));
-            colIR.setCellValueFactory(new PropertyValueFactory<>("imdbRating"));
-            colUR.setCellValueFactory(new PropertyValueFactory<>("userRating"));
-
-            tblMovies.setItems(movieWindowModel.getObservableMovies());
-
-
-        }
-        catch(Exception e) {
-            showError();
-        }
+        movieWindowModel = new MovieModel();
     }
 
     private void showError() {
@@ -85,5 +70,15 @@ public class MovieWindowController {
 
         stage.setTitle("Add/Edit User Rating");
         stage.show();
+    }
+
+    @Override
+    public void initialize(URL location, ResourceBundle resources) {
+        colTitle.setCellValueFactory(new PropertyValueFactory<>("title"));
+        colCategory.setCellValueFactory(new PropertyValueFactory<>("category"));
+        colIR.setCellValueFactory(new PropertyValueFactory<>("imdbRating"));
+        colUR.setCellValueFactory(new PropertyValueFactory<>("userRating"));
+
+        tblMovies.setItems(movieWindowModel.getObservableMovies());
     }
 }

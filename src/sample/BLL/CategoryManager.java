@@ -9,7 +9,6 @@ import java.util.List;
 public class CategoryManager {
     private final CategoryDAO categoryDAO;
     public CategoryManager() throws IOException {
-
         categoryDAO = new CategoryDAO();
     }
 
@@ -17,7 +16,7 @@ public class CategoryManager {
         return categoryDAO.getAllCategories();
     }
 
-    public Category createNewCategory(Category newCategory) throws Exception {
+    public Category createCategory(Category newCategory) throws Exception {
         return categoryDAO.createCategory(newCategory);
     }
 

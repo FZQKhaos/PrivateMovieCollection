@@ -2,19 +2,23 @@ package sample.GUI.Controller;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.Initializable;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.TextField;
 import javafx.scene.control.Button;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import sample.BE.Movie;
-import sample.GUI.Model.NewMovieWindowModel;
+import sample.GUI.Model.CategoryModel;
+import sample.GUI.Model.MovieModel;
 
 import java.io.File;
 import java.io.IOException;
+import java.net.URL;
+import java.util.ResourceBundle;
 
 
-public class NewMovieWindowController {
+public class NewMovieWindowController implements Initializable {
 
     @FXML
     private ComboBox cbCategory;
@@ -25,11 +29,21 @@ public class NewMovieWindowController {
     @FXML
     private TextField txtRating, txtTitle, txtFile;
 
-    private NewMovieWindowModel newMovieWindowModel;
+    private MovieModel movieModel;
+    private CategoryModel categoryModel;
 
-    public NewMovieWindowController() throws IOException {
+    public NewMovieWindowController() throws Exception {
+        movieModel = new MovieModel();
+        categoryModel = new CategoryModel();
+    }
 
-        newMovieWindowModel = new NewMovieWindowModel();
+    @Override
+    public void initialize(URL location, ResourceBundle resources) {
+        try {
+            cbCategory.setItems(categoryModel.getObservableCategories());
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
     }
 
     public void onActionChoose(ActionEvent actionEvent) {
@@ -56,17 +70,15 @@ public class NewMovieWindowController {
     }
 
     public void onActionSave(ActionEvent actionEvent) throws Exception {
-        //placeholder for create movie i movie model
-        //movieModel.createMovie();
-
         String title = txtTitle.getText();
         double imdbrating = Double.parseDouble(txtRating.getText());
         String file = txtFile.getText();
 
         //create new movie here
-        newMovieWindowModel.createMovie(new Movie(0, imdbrating, title, file));
+        movieModel.createMovie(new Movie(imdbrating,title,file));
 
         Stage stage = (Stage) btnCancel.getScene().getWindow();
         stage.close();
     }
+
 }
