@@ -45,7 +45,7 @@ public class CategoryDAO {
 
     public Category createCategory(Category category) throws Exception {
         // SQL command
-        String sql = "INSERT INTO dbo.Category () VALUES (?);";
+        String sql = "INSERT INTO dbo.Category VALUES (?);";
 
         //
         try (Connection conn = databaseConnector.getConnection();

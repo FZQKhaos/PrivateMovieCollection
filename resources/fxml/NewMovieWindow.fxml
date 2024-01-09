@@ -35,13 +35,13 @@
             </HBox>
             <HBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="200.0" spacing="10.0">
                <children>
-                  <Text strokeType="OUTSIDE" strokeWidth="0.0" text="imdb Rating">
+                  <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Imdb rating">
                      <font>
                         <Font name="System Bold Italic" size="12.0" />
                      </font>
                   </Text>
                   <TextField fx:id="txtRating" prefHeight="0.0" prefWidth="50.0" scaleShape="false" />
-                  <Button fx:id="btnAPISearch" mnemonicParsing="false" onAction="#onActionCancel" text="Cancel" />
+                  <Button fx:id="btnAPISearch" mnemonicParsing="false" onAction="#onActionCancel" text="Look up rating" />
                </children>
             </HBox>
             <HBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="200.0" spacing="10.0">

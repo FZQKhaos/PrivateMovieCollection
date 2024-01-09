@@ -58,8 +58,14 @@ public class MovieWindowController implements Initializable {
 
     }
 
-    public void onActionAddRemoveCategory(ActionEvent actionEvent) {
+    public void onActionAddRemoveCategory(ActionEvent actionEvent) throws IOException {
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/NewCategoryWindow.fxml"));
+        Parent root = loader.load();
+        Stage stage = new Stage();
+        stage.setScene(new Scene(root));
 
+        stage.setTitle("Add category");
+        stage.show();
     }
 
     public void onActionAddEditUR(ActionEvent actionEvent) throws IOException {

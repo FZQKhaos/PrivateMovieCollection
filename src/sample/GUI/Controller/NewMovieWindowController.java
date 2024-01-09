@@ -8,6 +8,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.control.Button;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
+import sample.BE.Category;
 import sample.BE.Movie;
 import sample.GUI.Model.CategoryModel;
 import sample.GUI.Model.MovieModel;
