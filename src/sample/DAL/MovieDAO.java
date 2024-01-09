@@ -142,12 +142,6 @@ public class MovieDAO {
 
             stmt.executeUpdate();
 
-            ResultSet rs = stmt.getGeneratedKeys();
-
-            int id = 0;
-            if (rs.next()) {
-                id = rs.getInt(1);
-            }
             movie.addCategoryToMovie(category);
         }
     }

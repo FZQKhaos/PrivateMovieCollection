@@ -27,16 +27,16 @@ public class MovieWindowController implements Initializable {
     @FXML
     private TableColumn<Movie, Double> colIR, colUR;
     @FXML
-    private TableView tblMovies;
+    private TableView<Movie> tblMovies;
     @FXML
     private Button EditRating;
     @FXML
     private TextField txtSearchField;
-    private MovieModel movieWindowModel;
+    private MovieModel movieModel;
 
     public MovieWindowController() throws Exception {
 
-        movieWindowModel = new MovieModel();
+        movieModel = new MovieModel();
     }
 
     private void showError() {
@@ -79,6 +79,19 @@ public class MovieWindowController implements Initializable {
         colIR.setCellValueFactory(new PropertyValueFactory<>("imdbRating"));
         colUR.setCellValueFactory(new PropertyValueFactory<>("userRating"));
 
-        tblMovies.setItems(movieWindowModel.getObservableMovies());
+        tblMovies.setItems(movieModel.getObservableMovies());
+    }
+
+    public void onActionEditMovie(ActionEvent actionEvent) throws IOException {
+        Movie selectedMovie = tblMovies.getSelectionModel().getSelectedItem();
+        if (selectedMovie != null) {
+            // Needs Exception handling
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/NewMovieWindow.fxml"));
+            Stage stage = new Stage();
+            stage.setScene(new Scene(loader.load()));
+            NewMovieWindowController controller = loader.getController();
+            controller.setSelectedMovie(selectedMovie);
+            stage.show();
+        }
     }
 }

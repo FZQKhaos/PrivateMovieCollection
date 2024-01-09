@@ -29,6 +29,7 @@
          <children>
             <Button mnemonicParsing="false" onAction="#onActionNewMovie" text="New Movie" />
             <Button mnemonicParsing="false" onAction="#onActionRemoveMovie" text="Remove Movie" />
+            <Button mnemonicParsing="false" onAction="#onActionEditMovie" text="Edit Movie" />
             <Button fx:id="EditRating" mnemonicParsing="false" onAction="#onActionAddEditUR" prefHeight="26.0" prefWidth="131.0" text="Add/Edit User Rating" />
          </children>
       </HBox>
