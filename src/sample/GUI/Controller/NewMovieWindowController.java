@@ -31,6 +31,7 @@ public class NewMovieWindowController implements Initializable {
 
     private MovieModel movieModel;
     private CategoryModel categoryModel;
+    private Movie selectedMovie;
 
     public NewMovieWindowController() throws Exception {
         movieModel = new MovieModel();
@@ -70,15 +71,31 @@ public class NewMovieWindowController implements Initializable {
     }
 
     public void onActionSave(ActionEvent actionEvent) throws Exception {
-        String title = txtTitle.getText();
-        double imdbrating = Double.parseDouble(txtRating.getText());
-        String file = txtFile.getText();
 
-        //create new movie here
-        movieModel.createMovie(new Movie(imdbrating,title,file));
+        if (selectedMovie != null) {
+            // editing
+            movieModel.updateMovie(getUserInput());
+        }
+        else {
+            // creating
+            movieModel.createMovie(getUserInput());
+        }
 
+        selectedMovie = null;
         Stage stage = (Stage) btnCancel.getScene().getWindow();
         stage.close();
+    }
+
+    public Movie getUserInput() {
+        double imdbrating = Double.parseDouble(txtRating.getText());
+        String title = txtTitle.getText();
+        String file = txtFile.getText();
+
+        return new Movie(imdbrating, title, file);
+    }
+
+    public void setSelectedMovie(Movie movie) {
+        selectedMovie = movie;
     }
 
 }
