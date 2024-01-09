@@ -44,7 +44,7 @@ public class MovieWindowController implements Initializable {
     }
 
     public void onActionNewMovie(ActionEvent actionEvent) throws IOException {
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/NewMovieWindow.fxml"));
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/NewMovieWindow.fxml"));
         Parent root = loader.load();
         Stage stage = new Stage();
         stage.setScene(new Scene(root));
@@ -63,7 +63,7 @@ public class MovieWindowController implements Initializable {
     }
 
     public void onActionAddEditUR(ActionEvent actionEvent) throws IOException {
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/UserRating.fxml"));
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/UserRating.fxml"));
         Parent root = loader.load();
         Stage stage = new Stage();
         stage.setScene(new Scene(root));

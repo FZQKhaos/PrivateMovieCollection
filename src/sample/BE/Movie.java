@@ -105,6 +105,6 @@ public class Movie {
 
     @Override
     public String toString() {
-        return imdbRating + ", " + title + ", " + filePath + ", " + lastView + ", " + categories;
+        return title;
     }
 }
