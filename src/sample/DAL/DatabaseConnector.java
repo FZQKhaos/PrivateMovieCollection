@@ -9,6 +9,7 @@ import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.Properties;
 
+
 public class DatabaseConnector {
 
     private static final String PROP_FILE = "config/config.settings";
