@@ -6,10 +6,9 @@
 <?import javafx.scene.control.ListView?>
 <?import javafx.scene.layout.AnchorPane?>
 
-
 <AnchorPane prefHeight="362.0" prefWidth="365.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.GUI.Controller.AddCategoryToMovieController">
    <children>
-      <ComboBox fx:id="cbMovies" layoutX="83.0" layoutY="44.0" prefHeight="26.0" prefWidth="137.0" />
+      <ComboBox fx:id="cbMovies" layoutX="83.0" layoutY="44.0" prefHeight="26.0" prefWidth="137.0" promptText="Select a Movie" />
       <ListView fx:id="lstCategory" layoutX="83.0" layoutY="118.0" prefHeight="200.0" prefWidth="200.0" />
       <Button layoutX="244.0" layoutY="44.0" mnemonicParsing="false" onAction="#onActionAdd" text="Add" />
       <Label fx:id="lblStatus" layoutX="83.0" layoutY="83.0" prefHeight="26.0" prefWidth="200.0" />

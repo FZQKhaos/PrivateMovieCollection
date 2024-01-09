@@ -8,7 +8,7 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 
-<VBox xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.GUI.Controller.MovieWindowController">
+<VBox xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.GUI.Controller.MovieWindowController">
    <children>
       <HBox alignment="CENTER_LEFT" prefHeight="34.0" prefWidth="199.0" spacing="5.0" VBox.vgrow="ALWAYS">
          <children>
@@ -31,6 +31,7 @@
             <Button mnemonicParsing="false" onAction="#onActionRemoveMovie" text="Remove Movie" />
             <Button mnemonicParsing="false" onAction="#onActionEditMovie" text="Edit Movie" />
             <Button fx:id="EditRating" mnemonicParsing="false" onAction="#onActionAddEditUR" prefHeight="26.0" prefWidth="131.0" text="Add/Edit User Rating" />
+            <Button mnemonicParsing="false" onAction="#onActionAddCategoryToMovie" text="Add Category to Movie" />
          </children>
       </HBox>
    </children>

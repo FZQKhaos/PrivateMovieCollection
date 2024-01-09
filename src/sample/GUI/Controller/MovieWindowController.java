@@ -39,6 +39,16 @@ public class MovieWindowController implements Initializable {
         movieModel = new MovieModel();
     }
 
+    @Override
+    public void initialize(URL location, ResourceBundle resources) {
+        colTitle.setCellValueFactory(new PropertyValueFactory<>("title"));
+        colCategory.setCellValueFactory(new PropertyValueFactory<>("category"));
+        colIR.setCellValueFactory(new PropertyValueFactory<>("imdbRating"));
+        colUR.setCellValueFactory(new PropertyValueFactory<>("userRating"));
+
+        tblMovies.setItems(movieModel.getObservableMovies());
+    }
+
     private void showError() {
         // Make error message appear
     }
@@ -78,14 +88,15 @@ public class MovieWindowController implements Initializable {
         stage.show();
     }
 
-    @Override
-    public void initialize(URL location, ResourceBundle resources) {
-        colTitle.setCellValueFactory(new PropertyValueFactory<>("title"));
-        colCategory.setCellValueFactory(new PropertyValueFactory<>("category"));
-        colIR.setCellValueFactory(new PropertyValueFactory<>("imdbRating"));
-        colUR.setCellValueFactory(new PropertyValueFactory<>("userRating"));
+    public void onActionAddCategoryToMovie(ActionEvent actionEvent) throws IOException {
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/AddCategoryToMovieWindow.fxml"));
+        Parent root = loader.load();
+        Stage stage = new Stage();
+        stage.setScene(new Scene(root));
+        stage.setResizable(false);
 
-        tblMovies.setItems(movieModel.getObservableMovies());
+        stage.setTitle("Add Category to Movie");
+        stage.show();
     }
 
     public void onActionEditMovie(ActionEvent actionEvent) throws IOException {
