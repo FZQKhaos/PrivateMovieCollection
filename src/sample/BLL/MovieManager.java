@@ -28,4 +28,12 @@ public class MovieManager {
     public void deleteMovie(Movie selectedMovie) throws Exception {
         movieDAO.deleteMovie(selectedMovie);
     }
+
+    private MovieSearcher movieSearcher = new MovieSearcher();
+
+    public List<Movie> searchMovie(String searchWord) throws Exception {
+        List<Movie> allSongs = getAllMovies();
+        List<Movie> searchResult = movieSearcher.searchMovie(allSongs,searchWord);
+        return searchResult;
+    }
 }
