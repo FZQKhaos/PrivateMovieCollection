@@ -99,10 +99,6 @@ public class Movie {
             categories.remove(category);
     }
 
-    public Category getCategory() {
-        return categories.getFirst();
-    }
-
     public void setAllCategories(List<Category> categories){
         this.categories.addAll(categories);
     }

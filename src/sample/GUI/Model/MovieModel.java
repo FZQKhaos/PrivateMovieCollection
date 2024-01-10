@@ -55,4 +55,13 @@ public class MovieModel {
     public List<Movie> getMoviesByCategory(Category category) throws Exception {
         return movieManager.getMoviesByCategory(category);
     }
+
+    public void searchMovies(String query) throws Exception {
+        List<Movie> searchResults = movieManager.searchMovies(query);
+        observableMovies.clear();
+        observableMovies.addAll(searchResults);
+        for (Movie movie : observableMovies) {
+            getMovieCategories(movie);
+        }
+    }
 }

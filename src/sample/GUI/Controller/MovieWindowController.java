@@ -83,7 +83,16 @@ public class MovieWindowController implements Initializable {
                 }
             }
         });
-        
+
+        txtSearchField.textProperty().addListener((observableValue, oldValue, newValue) -> {
+            try {
+                movieModel.searchMovies(newValue);
+                tblMovies.setItems(movieModel.getObservableMovies());
+            } catch (Exception e) {
+                // Needs handling of exception
+                throw new RuntimeException(e);
+            }
+        });
     }
 
     private void playVideo(String filePath) {

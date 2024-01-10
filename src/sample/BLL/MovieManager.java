@@ -2,6 +2,7 @@ package sample.BLL;
 
 import sample.BE.Category;
 import sample.BE.Movie;
+import sample.BLL.util.Searcher;
 import sample.DAL.MovieDAO;
 
 import java.io.IOException;
@@ -9,6 +10,7 @@ import java.util.List;
 
 public class MovieManager {
     private final MovieDAO movieDAO;
+    private Searcher movieSearcher = new Searcher();
     public MovieManager() throws IOException {
 
         movieDAO = new MovieDAO();
@@ -48,6 +50,9 @@ public class MovieManager {
     public List<Movie> getMoviesByCategory(Category category) throws Exception {
         return movieDAO.getMoviesByCategory(category);
     }
-
-
+    public List<Movie> searchMovies(String query) throws Exception {
+        List<Movie> allMovies = getAllMovies();
+        List<Movie> resultMovies = movieSearcher.search(allMovies, query);
+        return resultMovies;
+    }
 }
