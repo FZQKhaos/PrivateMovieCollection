@@ -24,10 +24,6 @@ public class MovieModel {
         return observableMovies;
     }
 
-    public List<Movie> getAllMovies() throws Exception {
-        return movieManager.getAllMovies();
-    }
-
     public List<Category> getMovieCategories(Movie movie) throws Exception {
         return movieManager.getMovieCategories(movie);
     }
@@ -60,8 +56,5 @@ public class MovieModel {
         List<Movie> searchResults = movieManager.searchMovies(query);
         observableMovies.clear();
         observableMovies.addAll(searchResults);
-        for (Movie movie : observableMovies) {
-            getMovieCategories(movie);
-        }
     }
 }

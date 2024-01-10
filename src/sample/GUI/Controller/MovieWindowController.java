@@ -37,8 +37,6 @@ public class MovieWindowController implements Initializable {
     @FXML
     private TableView<Movie> tblMovies;
     @FXML
-    private Button EditRating;
-    @FXML
     private TextField txtSearchField;
 
     private MovieModel movieModel;
@@ -52,12 +50,13 @@ public class MovieWindowController implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        colTitle.setCellValueFactory(new PropertyValueFactory<>("title"));
-        colCategory.setCellValueFactory(new PropertyValueFactory<>("categories"));
-        colIR.setCellValueFactory(new PropertyValueFactory<>("imdbRating"));
-        colUR.setCellValueFactory(new PropertyValueFactory<>("userRating"));
-        colLastViewed.setCellValueFactory(new PropertyValueFactory<>("lastView"));
+        txfSearchBarListener();
+        setupMovieTableView();
+        addCategories();
+        enableDoubleClick();
+    }
 
+    private void addCategories(){
         for (Movie movie: movieModel.getObservableMovies()){
             try {
                 movieModel.getMovieCategories(movie);
@@ -65,8 +64,9 @@ public class MovieWindowController implements Initializable {
                 throw new RuntimeException(e);
             }
         }
-        tblMovies.setItems(movieModel.getObservableMovies());
+    }
 
+    private void enableDoubleClick(){
         tblMovies.setOnMouseClicked(event -> {
             if (event.getButton().equals(MouseButton.PRIMARY) && event.getClickCount() == 2) {
                 Movie selectedMovie = tblMovies.getSelectionModel().getSelectedItem();
@@ -83,14 +83,24 @@ public class MovieWindowController implements Initializable {
                 }
             }
         });
+    }
 
+    private void setupMovieTableView(){
+        colTitle.setCellValueFactory(new PropertyValueFactory<>("title"));
+        colCategory.setCellValueFactory(new PropertyValueFactory<>("categories"));
+        colIR.setCellValueFactory(new PropertyValueFactory<>("imdbRating"));
+        colUR.setCellValueFactory(new PropertyValueFactory<>("userRating"));
+        colLastViewed.setCellValueFactory(new PropertyValueFactory<>("lastView"));
+        tblMovies.setItems(movieModel.getObservableMovies());
+    }
+
+    private void txfSearchBarListener(){
         txtSearchField.textProperty().addListener((observableValue, oldValue, newValue) -> {
             try {
                 movieModel.searchMovies(newValue);
-                tblMovies.setItems(movieModel.getObservableMovies());
+                addCategories();
             } catch (Exception e) {
-                // Needs handling of exception
-                throw new RuntimeException(e);
+                e.printStackTrace();
             }
         });
     }
