@@ -72,30 +72,7 @@ public class MovieWindowController implements Initializable {
                 }
             }
         });
-
-        FilteredList<Movie> filteredData = new FilteredList<>(movieModel.getObservableMovies(), b -> true);
-        txtSearchField.textProperty().addListener((observable, oldValue, newValue) -> {
-            filteredData.setPredicate(movie -> {
-                // If the textfield is empty, do not change
-                if (newValue.isEmpty() || newValue.isBlank() || newValue == null) {
-                    return true;
-                }
-                String searchKeyword = newValue.toLowerCase();
-                if (movie.getTitle().toLowerCase().indexOf(searchKeyword) > -1) {
-                    return true; // Title found
-                }
-                else if (movie.getCategory().getName().toLowerCase().indexOf(searchKeyword) > -1) {
-                    return true; // Category found
-                }
-                else {
-                    return false; // No match
-                }
-            });
-        });
-
-        SortedList<Movie> sortedData = new SortedList<>(filteredData);
-        sortedData.comparatorProperty().bind(tblMovies.comparatorProperty());
-        tblMovies.setItems(sortedData);
+        
     }
 
     private void playVideo(String filePath) {
