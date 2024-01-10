@@ -25,9 +25,11 @@ public class UserRatingController implements Initializable {
     private TextField txtfNewRating;
 
     private MovieModel movieModel;
+    private MovieWindowController movieWindowController;
 
     public UserRatingController() throws Exception {
         movieModel = new MovieModel();
+        movieWindowController = new MovieWindowController();
     }
 
     @Override
@@ -37,12 +39,15 @@ public class UserRatingController implements Initializable {
 
     public void onActionEdit(ActionEvent actionEvent) throws Exception {
         Movie selectedMovie =cbSelectMovie.getSelectionModel().getSelectedItem();
-
-        selectedMovie.setUserRating(Double.parseDouble(txtfNewRating.getText()));
-
-        movieModel.updateMovie(selectedMovie);
-
-        lblStatus.setTextFill(Color.DARKGREEN);
-        lblStatus.setText("Userrating updated for: " + selectedMovie.getTitle());
+        double newUserRating = Double.parseDouble(txtfNewRating.getText());
+        if (newUserRating <= 10) {
+            selectedMovie.setUserRating(newUserRating);
+            movieModel.updateMovie(selectedMovie);
+            lblStatus.setTextFill(Color.DARKGREEN);
+            lblStatus.setText("User rating updated for: " + selectedMovie.getTitle());
+        } else {
+            lblStatus.setTextFill(Color.DARKRED);
+            lblStatus.setText("User rating cant be higher than 10");
+        }
     }
 }
