@@ -103,8 +103,13 @@ public class MovieWindowController implements Initializable {
         stage.show();
     }
 
-    public void onActionRemoveMovie(ActionEvent actionEvent) {
+    public void onActionRemoveMovie(ActionEvent actionEvent) throws Exception {
+        Movie selectedMovie = tblMovies.getSelectionModel().getSelectedItem();
 
+        if (selectedMovie != null){
+            movieModel.deleteMovieCategory(selectedMovie);
+            movieModel.deleteMovie(selectedMovie);
+        }
     }
 
     public void onActionAddRemoveCategory(ActionEvent actionEvent) throws IOException {

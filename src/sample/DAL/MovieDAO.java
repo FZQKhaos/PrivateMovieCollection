@@ -131,6 +131,24 @@ public class MovieDAO {
         }
     }
 
+    public void deleteMovieCategory(Movie selectedMovie) throws Exception {
+        // SQL command
+        String sql = "DELETE FROM dbo.CategoryMovie WHERE MovieId = (?);";
+        try (Connection conn = databaseConnector.getConnection();
+             PreparedStatement stmt = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS))
+        {
+            stmt.setInt(1, selectedMovie.getId());
+
+            // Run the specified SQL statement
+            stmt.executeUpdate();
+        }
+        catch (SQLException ex)
+        {
+            ex.printStackTrace();
+            throw new Exception("Could not delete movie", ex);
+        }
+    }
+
     public void addCategoryToMovie(Movie movie, Category category) throws SQLException {
         // SQL command
         String sql = "INSERT INTO dbo.CategoryMovie (CategoryId, MovieId) VALUES (?, ?);";
@@ -205,4 +223,6 @@ public class MovieDAO {
             return categoriesByMovie;
         }
     }
+
+
 }
