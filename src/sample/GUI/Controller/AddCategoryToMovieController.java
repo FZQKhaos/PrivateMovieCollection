@@ -43,7 +43,10 @@ public class AddCategoryToMovieController implements Initializable {
         }
     }
 
-    public void onActionAdd(ActionEvent actionEvent) {
+    public void onActionAdd(ActionEvent actionEvent) throws Exception {
+        Movie movie = cbMovies.getSelectionModel().getSelectedItem();
+        Category category = lstCategory.getSelectionModel().getSelectedItem();
 
+        movieModel.addCategoryToMovie(movie, category);
     }
 }

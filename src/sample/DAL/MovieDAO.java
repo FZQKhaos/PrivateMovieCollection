@@ -22,7 +22,7 @@ public class MovieDAO {
         try (Connection conn = databaseConnector.getConnection();
              Statement stmt = conn.createStatement())
         {
-            String sql = "SELECT * FROM dbo.Movie;";
+            String sql = "SELECT * From dbo.Movie";
             ResultSet rs = stmt.executeQuery(sql);
 
             // Loop through rows from the database result set
@@ -53,7 +53,7 @@ public class MovieDAO {
 
     public Movie createMovie(Movie movie) throws Exception {
         // SQL command
-        String sql = "INSERT INTO dbo.Movie () VALUES (?,?,?,?);";
+        String sql = "INSERT INTO dbo.Movie (imdbrating, title, filepath) VALUES (?,?,?);";
 
         //
         try (Connection conn = databaseConnector.getConnection();
@@ -175,6 +175,34 @@ public class MovieDAO {
                 moviesByCategory.add(movie);
             }
         return moviesByCategory;
+        }
+    }
+
+    public List<Category> getCategoriesByMovie(Movie movie) throws Exception {
+        ArrayList<Category> categoriesByMovie = new ArrayList<>();
+        String sql = "SELECT CategoryId, name From dbo.Movie\n" +
+                "JOIN dbo.CategoryMovie CM on Movie.id = CM.MovieId\n" +
+                "JOIN dbo.Category C on C.id = CM.CategoryId\n" +
+                "WHERE MovieId = (?)";
+
+        try (Connection conn = databaseConnector.getConnection();
+             PreparedStatement stmt = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS))
+        {
+            stmt.setInt(1, movie.getId());
+
+            ResultSet rs = stmt.executeQuery();
+
+            // Loop through rows from the database result set
+            while (rs.next()) {
+
+                //Map DB row to Movie object
+                int id = rs.getInt("CategoryId");
+                String name = rs.getString("name");
+
+                Category category = new Category(id, name);
+                categoriesByMovie.add(category);
+            }
+            return categoriesByMovie;
         }
     }
 }

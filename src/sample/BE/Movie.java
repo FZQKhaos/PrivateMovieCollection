@@ -103,6 +103,14 @@ public class Movie {
         return categories.getFirst();
     }
 
+    public void setAllCategories(List<Category> categories){
+        this.categories.addAll(categories);
+    }
+
+    public List<Category> getCategories(){
+        return categories;
+    }
+
     @Override
     public String toString() {
         return title;

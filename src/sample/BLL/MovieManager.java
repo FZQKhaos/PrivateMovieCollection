@@ -18,6 +18,13 @@ public class MovieManager {
         return movieDAO.getAllMovies();
     }
 
+    public List<Category> getMovieCategories(Movie movie) throws Exception {
+        if(movie.getCategories().isEmpty()){
+            movie.setAllCategories(movieDAO.getCategoriesByMovie(movie));
+        }
+        return movie.getCategories();
+    }
+
     public Movie createMovie(Movie newMovie) throws Exception {
         return movieDAO.createMovie(newMovie);
     }

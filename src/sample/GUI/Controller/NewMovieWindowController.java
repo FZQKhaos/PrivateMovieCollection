@@ -17,12 +17,13 @@ import java.io.File;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
+import java.util.concurrent.TimeUnit;
 
 
 public class NewMovieWindowController implements Initializable {
 
     @FXML
-    private ComboBox cbCategory;
+    private ComboBox<Category> cbCategory;
 
     @FXML
     private Button btnCancel;
@@ -79,11 +80,14 @@ public class NewMovieWindowController implements Initializable {
         }
         else {
             // creating
-            movieModel.createMovie(getUserInput());
+            Movie movie = getUserInput();
+
+            movieModel.createMovie(movie);
+            movieModel.addCategoryToMovie(movie, cbCategory.getSelectionModel().getSelectedItem());
         }
 
         selectedMovie = null;
-        Stage stage = (Stage) btnCancel.getScene().getWindow();
+        Stage stage = (Stage) txtTitle.getScene().getWindow();
         stage.close();
     }
 

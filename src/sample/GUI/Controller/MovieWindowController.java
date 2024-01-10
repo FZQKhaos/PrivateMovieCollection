@@ -35,7 +35,10 @@ public class MovieWindowController implements Initializable {
     private Button EditRating;
     @FXML
     private TextField txtSearchField;
+
     private MovieModel movieModel;
+
+    private String folder = "data" + File.separator;
 
     public MovieWindowController() throws Exception {
 
@@ -45,10 +48,17 @@ public class MovieWindowController implements Initializable {
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         colTitle.setCellValueFactory(new PropertyValueFactory<>("title"));
-        colCategory.setCellValueFactory(new PropertyValueFactory<>("category"));
+        colCategory.setCellValueFactory(new PropertyValueFactory<>("categories"));
         colIR.setCellValueFactory(new PropertyValueFactory<>("imdbRating"));
         colUR.setCellValueFactory(new PropertyValueFactory<>("userRating"));
 
+        for (Movie movie: movieModel.getObservableMovies()){
+            try {
+                movieModel.getMovieCategories(movie);
+            } catch (Exception e) {
+                throw new RuntimeException(e);
+            }
+        }
         tblMovies.setItems(movieModel.getObservableMovies());
 
         tblMovies.setOnMouseClicked(event -> {
@@ -63,7 +73,7 @@ public class MovieWindowController implements Initializable {
     }
 
     private void playVideo(String filePath) {
-        File file = new File(filePath);
+        File file = new File(folder + filePath);
         if (file.exists()) {
             try {
                 Desktop.getDesktop().open(file);

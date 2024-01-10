@@ -28,6 +28,10 @@ public class MovieModel {
         return movieManager.getAllMovies();
     }
 
+    public List<Category> getMovieCategories(Movie movie) throws Exception {
+        return movieManager.getMovieCategories(movie);
+    }
+
     public Movie createMovie(Movie newMovie) throws Exception {
         return movieManager.createMovie(newMovie);
     }
