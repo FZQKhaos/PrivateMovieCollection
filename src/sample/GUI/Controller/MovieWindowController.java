@@ -3,6 +3,7 @@ package sample.GUI.Controller;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.input.MouseButton;
 import javafx.scene.control.Button;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
@@ -15,6 +16,8 @@ import javafx.scene.Parent;
 import sample.BE.Movie;
 import sample.GUI.Model.MovieModel;
 
+import java.awt.*;
+import java.io.File;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -47,6 +50,29 @@ public class MovieWindowController implements Initializable {
         colUR.setCellValueFactory(new PropertyValueFactory<>("userRating"));
 
         tblMovies.setItems(movieModel.getObservableMovies());
+
+        tblMovies.setOnMouseClicked(event -> {
+            if (event.getButton().equals(MouseButton.PRIMARY) && event.getClickCount() == 2) {
+                Movie selectedMovie = tblMovies.getSelectionModel().getSelectedItem();
+                if (selectedMovie != null) {
+                    String videoFilePath = selectedMovie.getFilePath();
+                    playVideo(videoFilePath);
+                }
+            }
+        });
+    }
+
+    private void playVideo(String filePath) {
+        File file = new File(filePath);
+        if (file.exists()) {
+            try {
+                Desktop.getDesktop().open(file);
+            } catch (IOException e) {
+                System.out.println("Error opening the media file: " + e.getMessage());
+            }
+        } else {
+            System.out.println("File does not exist: " + filePath);
+        }
     }
 
     private void showError() {
