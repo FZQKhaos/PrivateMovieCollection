@@ -44,6 +44,10 @@ public class MovieModel {
         movieManager.deleteMovie(selectedMovie);
     }
 
+    public void deleteMovieCategory(Movie selectedMovie) throws Exception {
+        movieManager.deleteMovieCategory(selectedMovie);
+    }
+
     public void addCategoryToMovie(Movie movie, Category category) throws Exception {
         movieManager.addCategoryToMovie(movie, category);
     }

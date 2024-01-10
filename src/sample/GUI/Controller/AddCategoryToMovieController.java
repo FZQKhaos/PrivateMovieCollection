@@ -6,6 +6,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
+import javafx.scene.paint.Color;
 import sample.BE.Category;
 import sample.BE.Movie;
 import sample.GUI.Model.CategoryModel;
@@ -48,5 +49,7 @@ public class AddCategoryToMovieController implements Initializable {
         Category category = lstCategory.getSelectionModel().getSelectedItem();
 
         movieModel.addCategoryToMovie(movie, category);
+        lblStatus.setTextFill(Color.DARKGREEN);
+        lblStatus.setText("Category added to " + movie);
     }
 }
