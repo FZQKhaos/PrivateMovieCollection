@@ -10,10 +10,10 @@ public class Movie {
     private double userRating;
     private String title;
     private String filePath;
-    private Timestamp lastView;
+    private String lastView;
     private List<Category> categories;
 
-    public Movie(int id, double imdbRating, double userRating, String title, String filePath, Timestamp lastView) {
+    public Movie(int id, double imdbRating, double userRating, String title, String filePath, String lastView) {
         this.id = id;
         this.imdbRating = imdbRating;
         this.userRating = userRating;
@@ -81,11 +81,11 @@ public class Movie {
         this.filePath = filePath;
     }
 
-    public Timestamp getLastView() {
+    public String getLastView() {
         return lastView;
     }
 
-    public void setLastView(Timestamp lastView) {
+    public void setLastView(String lastView) {
         this.lastView = lastView;
     }
 

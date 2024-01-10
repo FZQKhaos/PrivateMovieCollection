@@ -22,11 +22,14 @@ import java.awt.*;
 import java.io.File;
 import java.io.IOException;
 import java.net.URL;
+import java.sql.Timestamp;
+import java.util.Date;
 import java.util.ResourceBundle;
 
 
 public class MovieWindowController implements Initializable {
 
+    public TableColumn<Movie, String> colLastViewed;
     @FXML
     private TableColumn<Movie, String> colTitle, colCategory;
     @FXML
@@ -53,6 +56,7 @@ public class MovieWindowController implements Initializable {
         colCategory.setCellValueFactory(new PropertyValueFactory<>("categories"));
         colIR.setCellValueFactory(new PropertyValueFactory<>("imdbRating"));
         colUR.setCellValueFactory(new PropertyValueFactory<>("userRating"));
+        colLastViewed.setCellValueFactory(new PropertyValueFactory<>("lastView"));
 
         for (Movie movie: movieModel.getObservableMovies()){
             try {
@@ -69,6 +73,13 @@ public class MovieWindowController implements Initializable {
                 if (selectedMovie != null) {
                     String videoFilePath = selectedMovie.getFilePath();
                     playVideo(videoFilePath);
+                    try {
+                        Date lastviewed = new Date();
+                        selectedMovie.setLastView(String.valueOf(lastviewed));
+                        movieModel.updateMovie(selectedMovie);
+                    } catch (Exception e) {
+                        throw new RuntimeException(e);
+                    }
                 }
             }
         });

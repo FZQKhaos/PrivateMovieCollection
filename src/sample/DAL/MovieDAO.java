@@ -34,7 +34,7 @@ public class MovieDAO {
                 double userrating = rs.getDouble("userrating");
                 String title = rs.getString("title");
                 String filepath = rs.getString("filepath");
-                Timestamp lastview = rs.getTimestamp("lastview");
+                String lastview = rs.getString("lastview");
 
 
 
@@ -90,7 +90,7 @@ public class MovieDAO {
 
     public void updateMovie(Movie movie) throws Exception {
         // SQL command
-        String sql = "UPDATE dbo.Movie SET userrating = ?, title = ?, filepath = ? WHERE Id = ?";
+        String sql = "UPDATE dbo.Movie SET userrating = ?, title = ?, filepath = ?, lastview = ? WHERE Id = ?";
 
         //
         try (Connection conn = databaseConnector.getConnection();
@@ -100,8 +100,9 @@ public class MovieDAO {
             stmt.setDouble(1, movie.getUserRating());
             stmt.setString(2, movie.getTitle());
             stmt.setString(3, movie.getFilePath());
+            stmt.setString(4, movie.getLastView());
 
-            stmt.setInt(4, movie.getId());
+            stmt.setInt(5, movie.getId());
 
             // Run the specified SQL statement
             stmt.executeUpdate();
@@ -187,7 +188,7 @@ public class MovieDAO {
                 double userrating = rs.getDouble("userrating");
                 String title = rs.getString("title");
                 String filepath = rs.getString("filepath");
-                Timestamp lastview = rs.getTimestamp("lastview");
+                String lastview = rs.getString("lastview");
 
                 Movie movie = new Movie(id, imdbrating, userrating, title, filepath, lastview);
                 moviesByCategory.add(movie);

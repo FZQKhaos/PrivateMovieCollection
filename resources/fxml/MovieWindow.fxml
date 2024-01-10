@@ -8,7 +8,7 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 
-<VBox xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.GUI.Controller.MovieWindowController">
+<VBox prefHeight="410.0" prefWidth="724.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.GUI.Controller.MovieWindowController">
    <children>
       <HBox alignment="CENTER_LEFT" prefHeight="34.0" prefWidth="199.0" spacing="5.0" VBox.vgrow="ALWAYS">
          <children>
@@ -23,6 +23,7 @@
           <TableColumn fx:id="colCategory" minWidth="0.0" prefWidth="133.5999755859375" text="Category(s)" />
             <TableColumn fx:id="colIR" prefWidth="104.79998779296875" text="Imdb Rating" />
             <TableColumn fx:id="colUR" prefWidth="109.59991455078125" text="User Rating" />
+            <TableColumn fx:id="colLastViewed" prefWidth="107.0" text="Last Viewed" />
         </columns>
       </TableView>
       <HBox alignment="CENTER_LEFT" prefHeight="34.0" prefWidth="199.0" spacing="20.0" VBox.vgrow="ALWAYS">
