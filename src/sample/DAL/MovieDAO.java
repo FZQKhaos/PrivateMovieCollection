@@ -1,5 +1,7 @@
 package sample.DAL;
 
+import com.microsoft.sqlserver.jdbc.SQLServerException;
+import sample.BE.Category;
 import sample.BE.Movie;
 
 import java.io.IOException;
@@ -20,7 +22,7 @@ public class MovieDAO {
         try (Connection conn = databaseConnector.getConnection();
              Statement stmt = conn.createStatement())
         {
-            String sql = "SELECT * FROM dbo.Movie;";
+            String sql = "SELECT * From dbo.Movie";
             ResultSet rs = stmt.executeQuery(sql);
 
             // Loop through rows from the database result set
@@ -29,13 +31,14 @@ public class MovieDAO {
                 //Map DB row to Movie object
                 int id = rs.getInt("id");
                 double imdbrating = rs.getDouble("imdbrating");
+                double userrating = rs.getDouble("userrating");
                 String title = rs.getString("title");
                 String filepath = rs.getString("filepath");
-                Timestamp lastview = rs.getTimestamp("lastview");
+                String lastview = rs.getString("lastview");
 
 
 
-                Movie movie = new Movie(id, imdbrating ,title, filepath, lastview);
+                Movie movie = new Movie(id, imdbrating, userrating, title, filepath, lastview);
                 allMovies.add(movie);
             }
             return allMovies;
@@ -50,7 +53,7 @@ public class MovieDAO {
 
     public Movie createMovie(Movie movie) throws Exception {
         // SQL command
-        String sql = "INSERT INTO dbo.Movie () VALUES (?,?,?,?);";
+        String sql = "INSERT INTO dbo.Movie (imdbrating, title, filepath) VALUES (?,?,?);";
 
         //
         try (Connection conn = databaseConnector.getConnection();
@@ -87,7 +90,7 @@ public class MovieDAO {
 
     public void updateMovie(Movie movie) throws Exception {
         // SQL command
-        String sql = "UPDATE dbo.Movie SET userrating = ?, title = ?, filepath = ? WHERE Id = ?";
+        String sql = "UPDATE dbo.Movie SET userrating = ?, title = ?, filepath = ?, lastview = ? WHERE Id = ?";
 
         //
         try (Connection conn = databaseConnector.getConnection();
@@ -97,8 +100,9 @@ public class MovieDAO {
             stmt.setDouble(1, movie.getUserRating());
             stmt.setString(2, movie.getTitle());
             stmt.setString(3, movie.getFilePath());
+            stmt.setString(4, movie.getLastView());
 
-            stmt.setInt(4, movie.getId());
+            stmt.setInt(5, movie.getId());
 
             // Run the specified SQL statement
             stmt.executeUpdate();
@@ -127,4 +131,99 @@ public class MovieDAO {
             throw new Exception("Could not delete movie", ex);
         }
     }
+
+    public void deleteMovieCategory(Movie selectedMovie) throws Exception {
+        // SQL command
+        String sql = "DELETE FROM dbo.CategoryMovie WHERE MovieId = (?);";
+        try (Connection conn = databaseConnector.getConnection();
+             PreparedStatement stmt = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS))
+        {
+            stmt.setInt(1, selectedMovie.getId());
+
+            // Run the specified SQL statement
+            stmt.executeUpdate();
+        }
+        catch (SQLException ex)
+        {
+            ex.printStackTrace();
+            throw new Exception("Could not delete movie", ex);
+        }
+    }
+
+    public void addCategoryToMovie(Movie movie, Category category) throws SQLException {
+        // SQL command
+        String sql = "INSERT INTO dbo.CategoryMovie (CategoryId, MovieId) VALUES (?, ?);";
+        try (Connection conn = databaseConnector.getConnection();
+             PreparedStatement stmt = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS))
+        {
+            stmt.setInt(1, category.getId());
+            stmt.setInt(2, movie.getId());
+
+            stmt.executeUpdate();
+
+            movie.addCategoryToMovie(category);
+        }
+    }
+
+    public List<Movie> getMoviesByCategory(Category category) throws Exception {
+        ArrayList<Movie> moviesByCategory = new ArrayList<>();
+        String sql = "SELECT * From dbo.Movie " +
+                     "JOIN dbo.CategoryMovie CM " +
+                     "on Movie.id = CM.MovieId " +
+                     "WHERE cm.CategoryId = ?;";
+
+        try (Connection conn = databaseConnector.getConnection();
+             PreparedStatement stmt = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS))
+        {
+            stmt.setInt(1, category.getId());
+
+            ResultSet rs = stmt.executeQuery();
+
+            // Loop through rows from the database result set
+            while (rs.next()) {
+
+                //Map DB row to Movie object
+                int id = rs.getInt("id");
+                double imdbrating = rs.getDouble("imdbrating");
+                double userrating = rs.getDouble("userrating");
+                String title = rs.getString("title");
+                String filepath = rs.getString("filepath");
+                String lastview = rs.getString("lastview");
+
+                Movie movie = new Movie(id, imdbrating, userrating, title, filepath, lastview);
+                moviesByCategory.add(movie);
+            }
+        return moviesByCategory;
+        }
+    }
+
+    public List<Category> getCategoriesByMovie(Movie movie) throws Exception {
+        ArrayList<Category> categoriesByMovie = new ArrayList<>();
+        String sql = "SELECT CategoryId, name From dbo.Movie\n" +
+                "JOIN dbo.CategoryMovie CM on Movie.id = CM.MovieId\n" +
+                "JOIN dbo.Category C on C.id = CM.CategoryId\n" +
+                "WHERE MovieId = (?)";
+
+        try (Connection conn = databaseConnector.getConnection();
+             PreparedStatement stmt = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS))
+        {
+            stmt.setInt(1, movie.getId());
+
+            ResultSet rs = stmt.executeQuery();
+
+            // Loop through rows from the database result set
+            while (rs.next()) {
+
+                //Map DB row to Movie object
+                int id = rs.getInt("CategoryId");
+                String name = rs.getString("name");
+
+                Category category = new Category(id, name);
+                categoriesByMovie.add(category);
+            }
+            return categoriesByMovie;
+        }
+    }
+
+
 }

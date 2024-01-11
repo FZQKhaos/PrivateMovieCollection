@@ -6,7 +6,9 @@ import com.microsoft.sqlserver.jdbc.SQLServerException;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.sql.Connection;
+import java.sql.SQLException;
 import java.util.Properties;
+
 
 public class DatabaseConnector {
 
@@ -22,8 +24,9 @@ public class DatabaseConnector {
         dataSource.setDatabaseName(databaseProperties.getProperty("Database"));
         dataSource.setUser(databaseProperties.getProperty("User"));
         dataSource.setPassword(databaseProperties.getProperty("Password"));
-        dataSource.setPortNumber(1443);
+        dataSource.setPortNumber(1433);
         dataSource.setTrustServerCertificate(true);
+        dataSource.setLoginTimeout(5);
     }
 
     public Connection getConnection() throws SQLServerException {

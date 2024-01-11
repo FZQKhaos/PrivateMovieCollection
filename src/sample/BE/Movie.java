@@ -10,17 +10,24 @@ public class Movie {
     private double userRating;
     private String title;
     private String filePath;
-    private Timestamp lastView;
-    private final List<Category> categories;
+    private String lastView;
+    private List<Category> categories;
 
-    public Movie(int id, double imdbRating, String title, String filePath, Timestamp lastView) {
+    public Movie(int id, double imdbRating, double userRating, String title, String filePath, String lastView) {
         this.id = id;
         this.imdbRating = imdbRating;
+        this.userRating = userRating;
         this.title = title;
         this.filePath = filePath;
         this.lastView = lastView;
 
         categories = new ArrayList<>();
+    }
+
+    public Movie(double imdbRating, String title, String filePath){
+        this.imdbRating = imdbRating;
+        this.title = title;
+        this.filePath = filePath;
     }
 
     public Movie(int id, double imdbRating, String title, String filePath) {
@@ -74,11 +81,11 @@ public class Movie {
         this.filePath = filePath;
     }
 
-    public Timestamp getLastView() {
+    public String getLastView() {
         return lastView;
     }
 
-    public void setLastView(Timestamp lastView) {
+    public void setLastView(String lastView) {
         this.lastView = lastView;
     }
 
@@ -92,8 +99,16 @@ public class Movie {
             categories.remove(category);
     }
 
+    public void setAllCategories(List<Category> categories){
+        this.categories.addAll(categories);
+    }
+
+    public List<Category> getCategories(){
+        return categories;
+    }
+
     @Override
     public String toString() {
-        return imdbRating + ", " + title + ", " + filePath + ", " + lastView + ", " + categories;
+        return title;
     }
 }

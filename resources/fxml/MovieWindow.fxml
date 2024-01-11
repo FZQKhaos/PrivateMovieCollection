@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+
+<VBox prefHeight="410.0" prefWidth="724.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.GUI.Controller.MovieWindowController">
+   <children>
+      <HBox alignment="CENTER_LEFT" prefHeight="34.0" prefWidth="199.0" spacing="5.0" VBox.vgrow="ALWAYS">
+         <children>
+            <ComboBox prefWidth="150.0" promptText="Category" />
+            <Button mnemonicParsing="false" onAction="#onActionAddRemoveCategory" text="+/-" />
+            <TextField fx:id="txtSearchField" prefHeight="26.0" prefWidth="282.0" promptText="🔎 Search" />
+         </children>
+      </HBox>
+      <TableView fx:id="tblMovies" prefHeight="342.0" prefWidth="614.0" VBox.vgrow="ALWAYS">
+        <columns>
+          <TableColumn fx:id="colTitle" prefWidth="266.4000120162964" text="Title" />
+          <TableColumn fx:id="colCategory" minWidth="0.0" prefWidth="133.5999755859375" text="Category(s)" />
+            <TableColumn fx:id="colIR" prefWidth="104.79998779296875" text="Imdb Rating" />
+            <TableColumn fx:id="colUR" prefWidth="109.59991455078125" text="User Rating" />
+            <TableColumn fx:id="colLastViewed" prefWidth="107.0" text="Last Viewed" />
+        </columns>
+      </TableView>
+      <HBox alignment="CENTER_LEFT" prefHeight="34.0" prefWidth="199.0" spacing="20.0" VBox.vgrow="ALWAYS">
+         <children>
+            <Button mnemonicParsing="false" onAction="#onActionNewMovie" text="New Movie" />
+            <Button mnemonicParsing="false" onAction="#onActionRemoveMovie" text="Remove Movie" />
+            <Button mnemonicParsing="false" onAction="#onActionEditMovie" text="Edit Movie" />
+            <Button fx:id="EditRating" mnemonicParsing="false" onAction="#onActionAddEditUR" prefHeight="26.0" prefWidth="131.0" text="Add/Edit User Rating" />
+            <Button mnemonicParsing="false" onAction="#onActionAddCategoryToMovie" text="Add Category to Movie" />
+         </children>
+      </HBox>
+   </children>
+</VBox>
