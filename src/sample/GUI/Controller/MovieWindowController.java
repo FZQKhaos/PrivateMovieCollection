@@ -124,7 +124,7 @@ public class MovieWindowController implements Initializable {
     private void showError() {
         // Make error message appear
     }
-
+/*
     public void reminder(){
         if (dateChecker()){
             alertBox("Delete movies","Remember to delete movies with a user rating under 6 and haven't been watched in 2 years");
@@ -148,6 +148,8 @@ public class MovieWindowController implements Initializable {
 
         return oldMovies;
     }
+
+ */
 
     private void alertBox(String title, String content){
         Alert alert = new Alert(Alert.AlertType.INFORMATION);

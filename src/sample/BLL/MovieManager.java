@@ -6,18 +6,26 @@ import sample.BLL.util.Searcher;
 import sample.DAL.MovieDAO;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
 public class MovieManager {
     private final MovieDAO movieDAO;
     private Searcher movieSearcher = new Searcher();
+    private List<Movie> allMovies = new ArrayList<>();
+    private boolean shouldUpdate;
+
     public MovieManager() throws IOException {
 
         movieDAO = new MovieDAO();
     }
 
     public List<Movie> getAllMovies() throws Exception {
-        return movieDAO.getAllMovies();
+        if (allMovies.isEmpty()||shouldUpdate){
+            allMovies = movieDAO.getAllMovies();
+            shouldUpdate = false;
+        }
+        return allMovies;
     }
 
     public List<Category> getMovieCategories(Movie movie) throws Exception {
@@ -28,14 +36,17 @@ public class MovieManager {
     }
 
     public Movie createMovie(Movie newMovie) throws Exception {
+        shouldUpdate = true;
         return movieDAO.createMovie(newMovie);
     }
 
     public void updateMovie(Movie selectedMovie) throws Exception {
+        shouldUpdate = true;
         movieDAO.updateMovie(selectedMovie);
     }
 
     public void deleteMovie(Movie selectedMovie) throws Exception {
+        shouldUpdate = true;
         movieDAO.deleteMovie(selectedMovie);
     }
 
@@ -52,7 +63,6 @@ public class MovieManager {
     }
     public List<Movie> searchMovies(String query) throws Exception {
         List<Movie> allMovies = getAllMovies();
-        List<Movie> resultMovies = movieSearcher.search(allMovies, query);
-        return resultMovies;
+        return movieSearcher.search(allMovies, query);
     }
 }

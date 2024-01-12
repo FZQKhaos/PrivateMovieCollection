@@ -54,7 +54,7 @@ public class MovieDAO {
 
     public Movie createMovie(Movie movie) throws Exception {
         // SQL command
-        String sql = "INSERT INTO dbo.Movie (imdbrating, title, filepath) VALUES (?,?,?);";
+        String sql = "INSERT INTO dbo.Movie (imdbrating, title, filepath, lastview) VALUES (?,?,?,?);";
 
         //
         try (Connection conn = databaseConnector.getConnection();
@@ -64,6 +64,7 @@ public class MovieDAO {
             stmt.setDouble(1,movie.getImdbRating());
             stmt.setString(2, movie.getTitle());
             stmt.setString(3, movie.getFilePath());
+            stmt.setDate(4,Date.valueOf(Date.valueOf(movie.getLastView()).toLocalDate()));
 
 
             // Run the specified SQL statement

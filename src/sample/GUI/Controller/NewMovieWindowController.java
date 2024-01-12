@@ -16,37 +16,23 @@ import sample.GUI.Model.MovieModel;
 import java.io.File;
 import java.io.IOException;
 import java.net.URL;
+import java.time.LocalDate;
 import java.util.ResourceBundle;
 import java.util.concurrent.TimeUnit;
 
 
-public class NewMovieWindowController implements Initializable {
-
-    @FXML
-    private ComboBox<Category> cbCategory;
-
-    @FXML
-    private Button btnCancel;
+public class NewMovieWindowController {
 
     @FXML
     private TextField txtRating, txtTitle, txtFile;
+    @FXML
+    private Button btnCancel;
 
     private MovieModel movieModel;
-    private CategoryModel categoryModel;
     private Movie selectedMovie;
 
     public NewMovieWindowController() throws Exception {
         movieModel = new MovieModel();
-        categoryModel = new CategoryModel();
-    }
-
-    @Override
-    public void initialize(URL location, ResourceBundle resources) {
-        try {
-            cbCategory.setItems(categoryModel.getObservableCategories());
-        } catch (Exception e) {
-            throw new RuntimeException(e);
-        }
     }
 
     public void onActionChoose(ActionEvent actionEvent) {
@@ -81,9 +67,9 @@ public class NewMovieWindowController implements Initializable {
         else {
             // creating
             Movie movie = getUserInput();
-
+            LocalDate currentDate = LocalDate.now();
+            movie.setLastView(currentDate);
             movieModel.createMovie(movie);
-            movieModel.addCategoryToMovie(movie, cbCategory.getSelectionModel().getSelectedItem());
         }
 
         selectedMovie = null;
