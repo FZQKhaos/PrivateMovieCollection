@@ -28,8 +28,8 @@ public class MovieModel {
         return movieManager.getMovieCategories(movie);
     }
 
-    public Movie createMovie(Movie newMovie) throws Exception {
-        return movieManager.createMovie(newMovie);
+    public void createMovie(Movie newMovie) throws Exception {
+        movieManager.createMovie(newMovie);
     }
 
     public void updateMovie(Movie selectedMovie) throws Exception {

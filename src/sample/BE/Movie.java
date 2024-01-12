@@ -1,6 +1,5 @@
 package sample.BE;
 
-import java.sql.Timestamp;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
@@ -25,10 +24,11 @@ public class Movie {
         categories = new ArrayList<>();
     }
 
-    public Movie(double imdbRating, String title, String filePath){
+    public Movie(double imdbRating, String title, String filePath, LocalDate lastView){
         this.imdbRating = imdbRating;
         this.title = title;
         this.filePath = filePath;
+        this.lastView = lastView;
     }
 
     public Movie(int id, double imdbRating, String title, String filePath) {
@@ -39,9 +39,6 @@ public class Movie {
 
         categories = new ArrayList<>();
     }
-
-
-
     public int getId() {
         return id;
     }

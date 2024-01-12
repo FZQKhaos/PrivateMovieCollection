@@ -66,7 +66,6 @@ public class MovieDAO {
             stmt.setString(3, movie.getFilePath());
             stmt.setDate(4,Date.valueOf(Date.valueOf(movie.getLastView()).toLocalDate()));
 
-
             // Run the specified SQL statement
             stmt.executeUpdate();
 

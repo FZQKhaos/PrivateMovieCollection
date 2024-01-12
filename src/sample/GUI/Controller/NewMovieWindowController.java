@@ -2,7 +2,9 @@ package sample.GUI.Controller;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Scene;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.TextField;
 import javafx.scene.control.Button;
@@ -30,6 +32,7 @@ public class NewMovieWindowController {
 
     private MovieModel movieModel;
     private Movie selectedMovie;
+    private Movie updatedMovie;
 
     public NewMovieWindowController() throws Exception {
         movieModel = new MovieModel();
@@ -66,10 +69,9 @@ public class NewMovieWindowController {
         }
         else {
             // creating
-            Movie movie = getUserInput();
             LocalDate currentDate = LocalDate.now();
-            movie.setLastView(currentDate);
-            movieModel.createMovie(movie);
+            updatedMovie = new Movie(Double.parseDouble(txtRating.getText()), txtTitle.getText(), txtFile.getText(), currentDate);
+            movieModel.createMovie(updatedMovie);
         }
 
         selectedMovie = null;
@@ -82,7 +84,10 @@ public class NewMovieWindowController {
         String title = txtTitle.getText();
         String file = txtFile.getText();
 
-        return new Movie(imdbrating, title, file);
+        selectedMovie.setImdbRating(imdbrating);
+        selectedMovie.setTitle(title);
+        selectedMovie.setFilePath(file);
+        return selectedMovie;
     }
 
     public void setSelectedMovie(Movie movie) {

@@ -204,7 +204,7 @@ public class MovieWindowController implements Initializable {
         Movie selectedMovie = tblMovies.getSelectionModel().getSelectedItem();
         if (selectedMovie != null) {
             // Needs Exception handling
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/NewMovieWindow.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/NewMovieWindow.fxml"));
             Stage stage = new Stage();
             stage.setScene(new Scene(loader.load()));
             NewMovieWindowController controller = loader.getController();
