@@ -40,14 +40,14 @@ public class UserRatingController implements Initializable {
     public void onActionEdit(ActionEvent actionEvent) throws Exception {
         Movie selectedMovie =cbSelectMovie.getSelectionModel().getSelectedItem();
         double newUserRating = Double.parseDouble(txtfNewRating.getText());
-        if (newUserRating <= 10) {
+        if (newUserRating <= 10 && newUserRating > 0) {
             selectedMovie.setUserRating(newUserRating);
             movieModel.updateMovie(selectedMovie);
             lblStatus.setTextFill(Color.DARKGREEN);
             lblStatus.setText("User rating updated for: " + selectedMovie.getTitle());
         } else {
             lblStatus.setTextFill(Color.DARKRED);
-            lblStatus.setText("User rating cant be higher than 10");
+            lblStatus.setText("User rating cant be higher than 10 or lower than 0");
         }
     }
 }
