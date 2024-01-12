@@ -1,6 +1,7 @@
 package sample.BE;
 
 import java.sql.Timestamp;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -10,10 +11,10 @@ public class Movie {
     private double userRating;
     private String title;
     private String filePath;
-    private String lastView;
+    private LocalDate lastView;
     private List<Category> categories;
 
-    public Movie(int id, double imdbRating, double userRating, String title, String filePath, String lastView) {
+    public Movie(int id, double imdbRating, double userRating, String title, String filePath, LocalDate lastView) {
         this.id = id;
         this.imdbRating = imdbRating;
         this.userRating = userRating;
@@ -81,11 +82,11 @@ public class Movie {
         this.filePath = filePath;
     }
 
-    public String getLastView() {
+    public LocalDate getLastView() {
         return lastView;
     }
 
-    public void setLastView(String lastView) {
+    public void setLastView(LocalDate lastView) {
         this.lastView = lastView;
     }
 

@@ -1,12 +1,11 @@
 package sample.GUI.Controller;
 
-import javafx.collections.transformation.FilteredList;
-import javafx.collections.transformation.SortedList;
+
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Alert;
 import javafx.scene.input.MouseButton;
-import javafx.scene.control.Button;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
@@ -22,14 +21,18 @@ import java.awt.*;
 import java.io.File;
 import java.io.IOException;
 import java.net.URL;
+
 import java.sql.Timestamp;
+import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 import java.util.ResourceBundle;
 
 
 public class MovieWindowController implements Initializable {
 
-    public TableColumn<Movie, String> colLastViewed;
+    public TableColumn<Movie, LocalDate> colLastViewed;
     @FXML
     private TableColumn<Movie, String> colTitle, colCategory;
     @FXML
@@ -39,9 +42,9 @@ public class MovieWindowController implements Initializable {
     @FXML
     private TextField txtSearchField;
 
-    private MovieModel movieModel;
+    private final MovieModel movieModel;
 
-    private String folder = "data" + File.separator;
+    private final String folder = "data" + File.separator;
 
     public MovieWindowController() throws Exception {
 
@@ -74,8 +77,8 @@ public class MovieWindowController implements Initializable {
                     String videoFilePath = selectedMovie.getFilePath();
                     playVideo(videoFilePath);
                     try {
-                        Date lastviewed = new Date();
-                        selectedMovie.setLastView(String.valueOf(lastviewed));
+                        LocalDate currentDate = LocalDate.now();
+                        selectedMovie.setLastView(currentDate);
                         movieModel.updateMovie(selectedMovie);
                     } catch (Exception e) {
                         throw new RuntimeException(e);
@@ -122,15 +125,36 @@ public class MovieWindowController implements Initializable {
         // Make error message appear
     }
 
-    public void onActionNewMovie(ActionEvent actionEvent) throws IOException {
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/NewMovieWindow.fxml"));
-        Parent root = loader.load();
-        Stage stage = new Stage();
-        stage.setScene(new Scene(root));
-        stage.setResizable(false);
+    public void reminder(){
+        if (dateChecker()){
+            alertBox("Delete movies","Remember to delete movies with a user rating under 6 and haven't been watched in 2 years");
+        }
+    }
 
-        stage.setTitle("New Movie");
-        stage.show();
+    public List<Movie> dateChecker(){
+        List<Movie> oldMovies = new ArrayList<>();
+
+        LocalDate currentDate = LocalDate.now();
+
+        for(Movie movie: movieModel.getObservableMovies()){
+            LocalDate lastView = movie.getLastView();
+
+            if (currentDate.isAfter(lastView)){
+
+            }
+
+        }
+
+
+        return oldMovies;
+    }
+
+    private void alertBox(String title, String content){
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        alert.setTitle(title);
+        alert.setHeaderText(null);
+        alert.setContentText(content);
+        alert.showAndWait();
     }
 
     public void onActionRemoveMovie(ActionEvent actionEvent) throws Exception {
@@ -140,6 +164,17 @@ public class MovieWindowController implements Initializable {
             movieModel.deleteMovieCategory(selectedMovie);
             movieModel.deleteMovie(selectedMovie);
         }
+    }
+
+    public void onActionNewMovie(ActionEvent actionEvent) throws IOException {
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/NewMovieWindow.fxml"));
+        Parent root = loader.load();
+        Stage stage = new Stage();
+        stage.setScene(new Scene(root));
+        stage.setResizable(false);
+
+        stage.setTitle("New Movie");
+        stage.show();
     }
 
     public void onActionAddRemoveCategory(ActionEvent actionEvent) throws IOException {

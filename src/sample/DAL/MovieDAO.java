@@ -6,6 +6,7 @@ import sample.BE.Movie;
 
 import java.io.IOException;
 import java.sql.*;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -34,7 +35,7 @@ public class MovieDAO {
                 double userrating = rs.getDouble("userrating");
                 String title = rs.getString("title");
                 String filepath = rs.getString("filepath");
-                String lastview = rs.getString("lastview");
+                LocalDate lastview = rs.getDate("lastview").toLocalDate();
 
 
 
@@ -100,7 +101,7 @@ public class MovieDAO {
             stmt.setDouble(1, movie.getUserRating());
             stmt.setString(2, movie.getTitle());
             stmt.setString(3, movie.getFilePath());
-            stmt.setString(4, movie.getLastView());
+            stmt.setDate(4, Date.valueOf(Date.valueOf(movie.getLastView()).toLocalDate()));
 
             stmt.setInt(5, movie.getId());
 
@@ -188,7 +189,7 @@ public class MovieDAO {
                 double userrating = rs.getDouble("userrating");
                 String title = rs.getString("title");
                 String filepath = rs.getString("filepath");
-                String lastview = rs.getString("lastview");
+                LocalDate lastview = rs.getDate("lastview").toLocalDate();
 
                 Movie movie = new Movie(id, imdbrating, userrating, title, filepath, lastview);
                 moviesByCategory.add(movie);
