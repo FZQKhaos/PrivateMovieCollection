@@ -22,10 +22,8 @@ import java.io.File;
 import java.io.IOException;
 import java.net.URL;
 
-import java.sql.Timestamp;
 import java.time.LocalDate;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 import java.util.ResourceBundle;
 
@@ -53,6 +51,7 @@ public class MovieWindowController implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
+        reminder();
         txfSearchBarListener();
         setupMovieTableView();
         addCategories();
@@ -120,36 +119,27 @@ public class MovieWindowController implements Initializable {
             System.out.println("File does not exist: " + filePath);
         }
     }
-
-    private void showError() {
-        // Make error message appear
-    }
-/*
+    
     public void reminder(){
-        if (dateChecker()){
-            alertBox("Delete movies","Remember to delete movies with a user rating under 6 and haven't been watched in 2 years");
+        if (!movieChecker().isEmpty()){
+            alertBox("Reminder","Movies you might want to remove: " + movieChecker());
         }
     }
 
-    public List<Movie> dateChecker(){
-        List<Movie> oldMovies = new ArrayList<>();
+    public List<Movie> movieChecker(){
+        List<Movie> moviesToRemove = new ArrayList<>();
 
-        LocalDate currentDate = LocalDate.now();
+        LocalDate expirationDate = LocalDate.now().minusYears(2);
 
         for(Movie movie: movieModel.getObservableMovies()){
             LocalDate lastView = movie.getLastView();
 
-            if (currentDate.isAfter(lastView)){
-
+            if (lastView.isBefore(expirationDate) && movie.getUserRating() < 6){
+                moviesToRemove.add(movie);
             }
-
         }
-
-
-        return oldMovies;
+        return moviesToRemove;
     }
-
- */
 
     private void alertBox(String title, String content){
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
