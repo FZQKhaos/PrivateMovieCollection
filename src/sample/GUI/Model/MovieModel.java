@@ -48,8 +48,17 @@ public class MovieModel {
         movieManager.addCategoryToMovie(movie, category);
     }
 
-    public List<Movie> getMoviesByCategory(Category category) throws Exception {
+   public List <Movie>getMovieByCategory(Category category) throws Exception{
         return movieManager.getMoviesByCategory(category);
+   }
+    public void updateMoviesByCategory(Category category) {
+        try {
+            List<Movie> moviesByCategory = movieManager.getMoviesByCategory(category);
+            observableMovies.clear();
+            observableMovies.addAll(moviesByCategory);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     public void searchMovies(String query) throws Exception {

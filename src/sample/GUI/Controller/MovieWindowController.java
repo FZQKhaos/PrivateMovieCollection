@@ -1,6 +1,13 @@
 package sample.GUI.Controller;
 
 
+import javafx.collections.transformation.FilteredList;
+import javafx.collections.transformation.SortedList;
+
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
+import javafx.scene.control.ComboBox;
+
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -14,7 +21,9 @@ import javafx.stage.Stage;
 import javafx.scene.Scene;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
+import sample.BE.Category;
 import sample.BE.Movie;
+import sample.BLL.CategoryManager;
 import sample.GUI.Model.MovieModel;
 
 import java.awt.*;
@@ -30,23 +39,34 @@ import java.util.ResourceBundle;
 
 public class MovieWindowController implements Initializable {
 
-    public TableColumn<Movie, LocalDate> colLastViewed;
+    @FXML
+    private TableColumn<Movie, LocalDate> colLastViewed;
+
     @FXML
     private TableColumn<Movie, String> colTitle, colCategory;
+
     @FXML
     private TableColumn<Movie, Double> colIR, colUR;
+
     @FXML
     private TableView<Movie> tblMovies;
+
     @FXML
     private TextField txtSearchField;
 
+    @FXML
+    private ComboBox<Category> ShowCategory;
+
     private final MovieModel movieModel;
+
+    private CategoryManager categoryManager;
+
 
     private final String folder = "data" + File.separator;
 
     public MovieWindowController() throws Exception {
-
         movieModel = new MovieModel();
+        categoryManager = new CategoryManager();
     }
 
     @Override
@@ -56,6 +76,7 @@ public class MovieWindowController implements Initializable {
         setupMovieTableView();
         addCategories();
         enableDoubleClick();
+        showCategory();
     }
 
     private void addCategories(){
@@ -65,6 +86,35 @@ public class MovieWindowController implements Initializable {
             } catch (Exception e) {
                 throw new RuntimeException(e);
             }
+        }
+    }
+
+    private void showCategory() {
+        try {
+            ObservableList<Category> categories = FXCollections.observableArrayList(categoryManager.getAllCategories());
+            ShowCategory.setItems(categories);
+
+            ShowCategory.setOnAction(event -> {
+                try {
+                    Category selectedCategory = ShowCategory.getValue();
+                    if (selectedCategory != null) {
+                        movieModel.updateMoviesByCategory(selectedCategory);
+                    } else {
+                        tblMovies.setItems(movieModel.getObservableMovies());
+                    }
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            });
+            for (Movie movie : movieModel.getObservableMovies()) {
+                try {
+                    movieModel.getMovieCategories(movie);
+                } catch (Exception e) {
+                    throw new RuntimeException(e);
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
         }
     }
 
@@ -85,6 +135,7 @@ public class MovieWindowController implements Initializable {
                 }
             }
         });
+
     }
 
     private void setupMovieTableView(){
@@ -96,7 +147,7 @@ public class MovieWindowController implements Initializable {
         tblMovies.setItems(movieModel.getObservableMovies());
     }
 
-    private void txfSearchBarListener(){
+    private void txfSearchBarListener() {
         txtSearchField.textProperty().addListener((observableValue, oldValue, newValue) -> {
             try {
                 movieModel.searchMovies(newValue);
@@ -106,7 +157,6 @@ public class MovieWindowController implements Initializable {
             }
         });
     }
-
     private void playVideo(String filePath) {
         File file = new File(folder + filePath);
         if (file.exists()) {

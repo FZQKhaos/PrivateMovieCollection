@@ -3,6 +3,8 @@ package sample.BE;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
+import java.util.stream.Collectors;
 
 public class Movie {
     private int id;
@@ -108,5 +110,17 @@ public class Movie {
     @Override
     public String toString() {
         return title;
+    }
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) return true;
+        if (obj == null || getClass() != obj.getClass()) return false;
+
+        Movie movie = (Movie) obj;
+        return Objects.equals(title, movie.title);
+    }
+    @Override
+    public int hashCode() {
+        return Objects.hash(title);
     }
 }
