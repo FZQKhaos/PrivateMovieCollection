@@ -24,6 +24,7 @@ import javafx.scene.Parent;
 import sample.BE.Category;
 import sample.BE.Movie;
 import sample.BLL.CategoryManager;
+import sample.GUI.Model.CategoryModel;
 import sample.GUI.Model.MovieModel;
 
 import java.awt.*;
@@ -59,14 +60,14 @@ public class MovieWindowController implements Initializable {
 
     private final MovieModel movieModel;
 
-    private CategoryManager categoryManager;
+    private CategoryModel categoryModel;
 
 
     private final String folder = "data" + File.separator;
 
     public MovieWindowController() throws Exception {
         movieModel = new MovieModel();
-        categoryManager = new CategoryManager();
+        categoryModel = new CategoryModel();
     }
 
     @Override
@@ -91,7 +92,7 @@ public class MovieWindowController implements Initializable {
 
     private void showCategory() {
         try {
-            ObservableList<Category> categories = FXCollections.observableArrayList(categoryManager.getAllCategories());
+            ObservableList<Category> categories = FXCollections.observableArrayList(categoryModel.getAllCategories());
             ShowCategory.setItems(categories);
 
             ShowCategory.setOnAction(event -> {
