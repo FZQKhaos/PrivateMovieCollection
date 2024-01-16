@@ -99,6 +99,7 @@ public class MovieWindowController implements Initializable {
                     Category selectedCategory = ShowCategory.getValue();
                     if (selectedCategory != null) {
                         movieModel.updateMoviesByCategory(selectedCategory);
+                        addCategories();
                     } else {
                         tblMovies.setItems(movieModel.getObservableMovies());
                     }
@@ -106,15 +107,8 @@ public class MovieWindowController implements Initializable {
                     e.printStackTrace();
                 }
             });
-            for (Movie movie : movieModel.getObservableMovies()) {
-                try {
-                    movieModel.getMovieCategories(movie);
-                } catch (Exception e) {
-                    throw new RuntimeException(e);
-                }
-            }
         } catch (Exception e) {
-            e.printStackTrace();
+            throw new RuntimeException(e);
         }
     }
 
