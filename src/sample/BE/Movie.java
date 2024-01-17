@@ -1,8 +1,10 @@
 package sample.BE;
 
-import java.sql.Timestamp;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
+import java.util.stream.Collectors;
 
 public class Movie {
     private int id;
@@ -10,10 +12,10 @@ public class Movie {
     private double userRating;
     private String title;
     private String filePath;
-    private String lastView;
+    private LocalDate lastView;
     private List<Category> categories;
 
-    public Movie(int id, double imdbRating, double userRating, String title, String filePath, String lastView) {
+    public Movie(int id, double imdbRating, double userRating, String title, String filePath, LocalDate lastView) {
         this.id = id;
         this.imdbRating = imdbRating;
         this.userRating = userRating;
@@ -24,10 +26,11 @@ public class Movie {
         categories = new ArrayList<>();
     }
 
-    public Movie(double imdbRating, String title, String filePath){
+    public Movie(double imdbRating, String title, String filePath, LocalDate lastView){
         this.imdbRating = imdbRating;
         this.title = title;
         this.filePath = filePath;
+        this.lastView = lastView;
     }
 
     public Movie(int id, double imdbRating, String title, String filePath) {
@@ -38,9 +41,6 @@ public class Movie {
 
         categories = new ArrayList<>();
     }
-
-
-
     public int getId() {
         return id;
     }
@@ -81,11 +81,11 @@ public class Movie {
         this.filePath = filePath;
     }
 
-    public String getLastView() {
+    public LocalDate getLastView() {
         return lastView;
     }
 
-    public void setLastView(String lastView) {
+    public void setLastView(LocalDate lastView) {
         this.lastView = lastView;
     }
 
@@ -110,5 +110,17 @@ public class Movie {
     @Override
     public String toString() {
         return title;
+    }
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) return true;
+        if (obj == null || getClass() != obj.getClass()) return false;
+
+        Movie movie = (Movie) obj;
+        return Objects.equals(title, movie.title);
+    }
+    @Override
+    public int hashCode() {
+        return Objects.hash(title);
     }
 }

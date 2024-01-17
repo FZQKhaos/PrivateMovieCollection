@@ -15,7 +15,6 @@ public class MovieModel {
 
     public MovieModel() throws Exception {
         movieManager = new MovieManager();
-
         observableMovies = FXCollections.observableArrayList();
         observableMovies.addAll(movieManager.getAllMovies());
     }
@@ -28,8 +27,8 @@ public class MovieModel {
         return movieManager.getMovieCategories(movie);
     }
 
-    public Movie createMovie(Movie newMovie) throws Exception {
-        return movieManager.createMovie(newMovie);
+    public void createMovie(Movie newMovie) throws Exception {
+        movieManager.createMovie(newMovie);
     }
 
     public void updateMovie(Movie selectedMovie) throws Exception {
@@ -38,6 +37,7 @@ public class MovieModel {
 
     public void deleteMovie(Movie selectedMovie) throws Exception {
         movieManager.deleteMovie(selectedMovie);
+        observableMovies.remove(selectedMovie);
     }
 
     public void deleteMovieCategory(Movie selectedMovie) throws Exception {
@@ -48,8 +48,17 @@ public class MovieModel {
         movieManager.addCategoryToMovie(movie, category);
     }
 
-    public List<Movie> getMoviesByCategory(Category category) throws Exception {
+   public List <Movie>getMovieByCategory(Category category) throws Exception{
         return movieManager.getMoviesByCategory(category);
+   }
+    public void updateMoviesByCategory(Category category) {
+        try {
+            List<Movie> moviesByCategory = movieManager.getMoviesByCategory(category);
+            observableMovies.clear();
+            observableMovies.addAll(moviesByCategory);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     public void searchMovies(String query) throws Exception {

@@ -2,7 +2,9 @@ package sample.GUI.Controller;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Scene;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.TextField;
 import javafx.scene.control.Button;
@@ -16,37 +18,24 @@ import sample.GUI.Model.MovieModel;
 import java.io.File;
 import java.io.IOException;
 import java.net.URL;
+import java.time.LocalDate;
 import java.util.ResourceBundle;
 import java.util.concurrent.TimeUnit;
 
 
-public class NewMovieWindowController implements Initializable {
-
-    @FXML
-    private ComboBox<Category> cbCategory;
-
-    @FXML
-    private Button btnCancel;
+public class NewMovieWindowController {
 
     @FXML
     private TextField txtRating, txtTitle, txtFile;
+    @FXML
+    private Button btnCancel;
 
     private MovieModel movieModel;
-    private CategoryModel categoryModel;
     private Movie selectedMovie;
+    private Movie updatedMovie;
 
     public NewMovieWindowController() throws Exception {
         movieModel = new MovieModel();
-        categoryModel = new CategoryModel();
-    }
-
-    @Override
-    public void initialize(URL location, ResourceBundle resources) {
-        try {
-            cbCategory.setItems(categoryModel.getObservableCategories());
-        } catch (Exception e) {
-            throw new RuntimeException(e);
-        }
     }
 
     public void onActionChoose(ActionEvent actionEvent) {
@@ -80,10 +69,9 @@ public class NewMovieWindowController implements Initializable {
         }
         else {
             // creating
-            Movie movie = getUserInput();
-
-            movieModel.createMovie(movie);
-            movieModel.addCategoryToMovie(movie, cbCategory.getSelectionModel().getSelectedItem());
+            LocalDate currentDate = LocalDate.now();
+            updatedMovie = new Movie(Double.parseDouble(txtRating.getText()), txtTitle.getText(), txtFile.getText(), currentDate);
+            movieModel.createMovie(updatedMovie);
         }
 
         selectedMovie = null;
@@ -96,7 +84,10 @@ public class NewMovieWindowController implements Initializable {
         String title = txtTitle.getText();
         String file = txtFile.getText();
 
-        return new Movie(imdbrating, title, file);
+        selectedMovie.setImdbRating(imdbrating);
+        selectedMovie.setTitle(title);
+        selectedMovie.setFilePath(file);
+        return selectedMovie;
     }
 
     public void setSelectedMovie(Movie movie) {

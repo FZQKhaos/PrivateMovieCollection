@@ -18,6 +18,6 @@
             <Font size="18.0" />
          </font>
       </Text>
-      <Label fx:id="lblStatus" alignment="CENTER" layoutX="93.0" layoutY="163.0" prefHeight="18.0" prefWidth="220.0" />
+      <Label fx:id="lblStatus" alignment="CENTER" layoutX="69.0" layoutY="161.0" prefHeight="3.0" prefWidth="272.0" />
    </children>
 </AnchorPane>

@@ -113,8 +113,8 @@ public class CategoryDAO {
         }
         catch (SQLException ex)
         {
-            ex.printStackTrace();
-            throw new Exception("Could not delete category", ex);
+            throw new Exception("Could not delete category,\n" +
+                    "remove movies associated with this category", ex);
         }
     }
 }

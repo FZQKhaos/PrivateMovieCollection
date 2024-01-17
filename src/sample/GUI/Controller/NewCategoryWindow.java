@@ -1,8 +1,12 @@
 package sample.GUI.Controller;
 
+
+
+
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Alert;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
@@ -39,10 +43,22 @@ public class NewCategoryWindow implements Initializable {
 
     public void onActionDelete(ActionEvent actionEvent) throws Exception {
         Category selectedCategory = cbCategories.getSelectionModel().getSelectedItem();
-        categoryModel.deleteCategory(selectedCategory);
+        try {
+            categoryModel.deleteCategory(selectedCategory);
+            lblDeleteStatus.setTextFill(Color.DARKGREEN);
+            lblDeleteStatus.setText("Category deleted: " + selectedCategory);
 
-        lblDeleteStatus.setTextFill(Color.DARKGREEN);
-        lblDeleteStatus.setText("Category deleted: " + selectedCategory);
+        } catch (Exception e) {
+            displayError(e);
+        }
+    }
+
+    private void displayError(Exception ex)
+    {
+        Alert alert = new Alert(Alert.AlertType.ERROR);
+        alert.setTitle("Something went wrong");
+        alert.setHeaderText(ex.getMessage());
+        alert.showAndWait();
     }
 
     @Override
