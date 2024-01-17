@@ -15,7 +15,6 @@ public class MovieModel {
 
     public MovieModel() throws Exception {
         movieManager = new MovieManager();
-
         observableMovies = FXCollections.observableArrayList();
         observableMovies.addAll(movieManager.getAllMovies());
     }
@@ -38,6 +37,7 @@ public class MovieModel {
 
     public void deleteMovie(Movie selectedMovie) throws Exception {
         movieManager.deleteMovie(selectedMovie);
+        observableMovies.remove(selectedMovie);
     }
 
     public void deleteMovieCategory(Movie selectedMovie) throws Exception {
