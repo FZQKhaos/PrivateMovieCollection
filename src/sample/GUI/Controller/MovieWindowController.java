@@ -8,6 +8,12 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.scene.control.ComboBox;
 
+import javafx.scene.media.Media;
+import javafx.scene.media.MediaPlayer;
+import javafx.scene.media.MediaView;
+import java.io.File;
+import javafx.scene.layout.StackPane;
+
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -154,11 +160,17 @@ public class MovieWindowController implements Initializable {
     private void playVideo(String filePath) {
         File file = new File(folder + filePath);
         if (file.exists()) {
-            try {
-                Desktop.getDesktop().open(file);
-            } catch (IOException e) {
-                System.out.println("Error opening the media file: " + e.getMessage());
-            }
+            String videoPath = file.toURI().toString();
+            Media media = new Media(videoPath);
+            MediaPlayer mediaPlayer = new MediaPlayer(media);
+            MediaView mediaView = new MediaView(mediaPlayer);
+
+            Stage videoStage = new Stage();
+            videoStage.setScene(new Scene(new StackPane(mediaView), 800, 600));
+            videoStage.setTitle("Video Player");
+            videoStage.show();
+
+            mediaPlayer.play();
         } else {
             System.out.println("File does not exist: " + filePath);
         }
