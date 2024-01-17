@@ -6,6 +6,7 @@ import javafx.collections.transformation.SortedList;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.geometry.Pos;
 import javafx.scene.control.ComboBox;
 
 import javafx.scene.media.Media;
@@ -13,6 +14,9 @@ import javafx.scene.media.MediaPlayer;
 import javafx.scene.media.MediaView;
 import java.io.File;
 import javafx.scene.layout.StackPane;
+import javafx.scene.control.Button;
+import javafx.scene.layout.StackPane;
+
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -165,8 +169,20 @@ public class MovieWindowController implements Initializable {
             MediaPlayer mediaPlayer = new MediaPlayer(media);
             MediaView mediaView = new MediaView(mediaPlayer);
 
+            Button playPauseButton = new Button("Play/Pause");
+            playPauseButton.setOnAction(e -> {
+                if (mediaPlayer.getStatus() == MediaPlayer.Status.PLAYING) {
+                    mediaPlayer.pause();
+                } else {
+                    mediaPlayer.play();
+                }
+            });
+            StackPane root = new StackPane();
+            root.getChildren().addAll(mediaView, playPauseButton);
+            StackPane.setAlignment(playPauseButton, Pos.BOTTOM_CENTER);
+
             Stage videoStage = new Stage();
-            videoStage.setScene(new Scene(new StackPane(mediaView), 800, 600));
+            videoStage.setScene(new Scene(root, 1850, 1000));
             videoStage.setTitle("Video Player");
             videoStage.show();
 
@@ -175,7 +191,7 @@ public class MovieWindowController implements Initializable {
             System.out.println("File does not exist: " + filePath);
         }
     }
-    
+
     public void reminder(){
         if (!movieChecker().isEmpty()){
             alertBox("Reminder","Movies you might want to remove: " + movieChecker());
