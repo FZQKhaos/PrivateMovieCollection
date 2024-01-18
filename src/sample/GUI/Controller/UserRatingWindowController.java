@@ -13,7 +13,7 @@ import sample.GUI.Model.MovieModel;
 import java.net.URL;
 import java.util.ResourceBundle;
 
-public class UserRatingController implements Initializable {
+public class UserRatingWindowController implements Initializable {
 
     @FXML
     private Label lblStatus;
@@ -27,7 +27,7 @@ public class UserRatingController implements Initializable {
     private MovieModel movieModel;
     private MovieWindowController movieWindowController;
 
-    public UserRatingController() throws Exception {
+    public UserRatingWindowController() throws Exception {
         movieModel = new MovieModel();
     }
 

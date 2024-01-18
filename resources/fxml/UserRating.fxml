@@ -8,7 +8,7 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane prefHeight="240.0" prefWidth="410.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.GUI.Controller.UserRatingController">
+<AnchorPane prefHeight="240.0" prefWidth="410.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.GUI.Controller.UserRatingWindowController">
    <children>
       <TextField fx:id="txtfNewRating" layoutX="90.0" layoutY="121.0" promptText="New Rating" />
       <ComboBox fx:id="cbSelectMovie" layoutX="128.0" layoutY="76.0" prefWidth="150.0" promptText="Select Movie" />

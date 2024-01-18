@@ -150,7 +150,7 @@ public class MovieWindowController implements Initializable {
     }
 
     private void txfSearchBarListener() {
-        if (cbShowCategory == null) {
+        if (cbShowCategory.getSelectionModel().getSelectedItem() == null) {
             txtSearchField.textProperty().addListener((observableValue, oldValue, newValue) -> {
                 try {
                     movieModel.searchMovies(newValue);
@@ -261,8 +261,8 @@ public class MovieWindowController implements Initializable {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/UserRating.fxml"));
         Parent root = loader.load();
 
-        UserRatingController userRatingController = loader.getController();
-        userRatingController.setMovieWindowController(this);
+        UserRatingWindowController userRatingWindowController = loader.getController();
+        userRatingWindowController.setMovieWindowController(this);
 
         Stage stage = new Stage();
         stage.setScene(new Scene(root));

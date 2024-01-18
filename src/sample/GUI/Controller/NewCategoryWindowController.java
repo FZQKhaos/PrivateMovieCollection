@@ -17,7 +17,7 @@ import sample.GUI.Model.CategoryModel;
 import java.net.URL;
 import java.util.ResourceBundle;
 
-public class NewCategoryWindow implements Initializable {
+public class NewCategoryWindowController implements Initializable {
     @FXML
     private Label lblAddStatus;
     @FXML
@@ -28,7 +28,7 @@ public class NewCategoryWindow implements Initializable {
     private TextField txtCategory;
     private CategoryModel categoryModel;
 
-    public NewCategoryWindow() throws Exception {
+    public NewCategoryWindowController() throws Exception {
         categoryModel = new CategoryModel();
     }
 
