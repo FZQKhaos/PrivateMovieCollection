@@ -297,6 +297,7 @@ public class MovieWindowController implements Initializable {
             NewMovieWindowController controller = loader.getController();
             controller.setMovieWindowController(this);
             controller.setSelectedMovie(selectedMovie);
+            controller.fillTextFields(selectedMovie);
             stage.show();
         }
     }

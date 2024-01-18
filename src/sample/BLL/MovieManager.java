@@ -21,7 +21,7 @@ public class MovieManager {
     }
 
     public List<Movie> getAllMovies() throws Exception {
-        if (allMovies.isEmpty()||shouldUpdate){
+        if (allMovies.isEmpty() || shouldUpdate){
             allMovies = movieDAO.getAllMovies();
             shouldUpdate = false;
         }

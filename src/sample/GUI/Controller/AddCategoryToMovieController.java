@@ -46,16 +46,19 @@ public class AddCategoryToMovieController implements Initializable {
     }
 
     public void onActionAdd(ActionEvent actionEvent) throws Exception {
-        Movie movie = cbMovies.getSelectionModel().getSelectedItem();
-        Category category = lstCategory.getSelectionModel().getSelectedItem();
+        try {
+            Movie movie = cbMovies.getSelectionModel().getSelectedItem();
+            Category category = lstCategory.getSelectionModel().getSelectedItem();
 
-        movieModel.addCategoryToMovie(movie, category);
-        movieWindowController.updateCategories(movie, category);
+            movieModel.addCategoryToMovie(movie, category);
+            movieWindowController.updateCategories(movie, category);
 
-
-
-        lblStatus.setTextFill(Color.DARKGREEN);
-        lblStatus.setText("Category added to " + movie);
+            lblStatus.setTextFill(Color.DARKGREEN);
+            lblStatus.setText("Category added to " + movie);
+        } catch (Exception e){
+            lblStatus.setTextFill(Color.DARKRED);
+            lblStatus.setText("You have to select a movie and a category");
+        }
     }
 
     public void setMovieWindowController(MovieWindowController movieWindowController) {

@@ -33,11 +33,16 @@ public class NewCategoryWindowController implements Initializable {
     }
 
     public void onActionAdd(ActionEvent actionEvent) throws Exception {
-        categoryModel.createCategory(new Category(txtCategory.getText()));
+        if (!txtCategory.getText().isEmpty()) {
+            categoryModel.createCategory(new Category(txtCategory.getText()));
 
-        lblAddStatus.setTextFill(Color.DARKGREEN);
-        lblAddStatus.setText("Category added: " + txtCategory.getText());
-        txtCategory.clear();
+            lblAddStatus.setTextFill(Color.DARKGREEN);
+            lblAddStatus.setText("Category added: " + txtCategory.getText());
+            txtCategory.clear();
+        } else {
+            lblAddStatus.setTextFill(Color.DARKRED);
+            lblAddStatus.setText("Can't add a blank category");
+        }
     }
 
     public void onActionDelete(ActionEvent actionEvent) throws Exception {
@@ -46,7 +51,6 @@ public class NewCategoryWindowController implements Initializable {
             categoryModel.deleteCategory(selectedCategory);
             lblDeleteStatus.setTextFill(Color.DARKGREEN);
             lblDeleteStatus.setText("Category deleted: " + selectedCategory);
-
         } catch (Exception e) {
             displayError(e);
         }
@@ -56,7 +60,7 @@ public class NewCategoryWindowController implements Initializable {
     {
         Alert alert = new Alert(Alert.AlertType.ERROR);
         alert.setTitle("Something went wrong");
-        alert.setHeaderText(ex.getMessage());
+        alert.setHeaderText("Select a category to delete");
         alert.showAndWait();
     }
 

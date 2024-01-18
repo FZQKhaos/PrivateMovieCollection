@@ -11,6 +11,6 @@
       <ComboBox fx:id="cbMovies" layoutX="83.0" layoutY="44.0" prefHeight="26.0" prefWidth="137.0" promptText="Select a Movie" />
       <ListView fx:id="lstCategory" layoutX="83.0" layoutY="118.0" prefHeight="200.0" prefWidth="200.0" />
       <Button layoutX="244.0" layoutY="44.0" mnemonicParsing="false" onAction="#onActionAdd" text="Add" />
-      <Label fx:id="lblStatus" layoutX="83.0" layoutY="83.0" prefHeight="26.0" prefWidth="200.0" />
+      <Label fx:id="lblStatus" alignment="CENTER" contentDisplay="CENTER" layoutX="58.0" layoutY="81.0" prefHeight="26.0" prefWidth="250.0" />
    </children>
 </AnchorPane>

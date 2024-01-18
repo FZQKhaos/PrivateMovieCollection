@@ -2,8 +2,11 @@ package sample.GUI.Controller;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.Initializable;
+import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.control.Button;
+import javafx.scene.paint.Color;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import sample.BE.Movie;
@@ -11,17 +14,19 @@ import sample.GUI.Model.IMDBRatingModel;
 import sample.GUI.Model.MovieModel;
 
 import java.io.File;
+import java.net.URL;
 import java.time.LocalDate;
+import java.util.ResourceBundle;
 
 
 public class NewMovieWindowController {
-
+    @FXML
+    private Label lblStatus;
     @FXML
     private TextField txtRating, txtTitle, txtFile;
 
     private MovieModel movieModel;
     private Movie selectedMovie;
-    private Movie updatedMovie;
 
     private MovieWindowController movieWindowController;
 
@@ -55,20 +60,31 @@ public class NewMovieWindowController {
 
 
     public void onActionSave(ActionEvent actionEvent) throws Exception {
-
-        if (selectedMovie != null) {
-            // editing
-            movieModel.updateMovie(getUserInput());
-            movieWindowController.updateTable();
+        try {
+                if (selectedMovie != null) {
+                    // editing
+                    if (!txtTitle.getText().isEmpty()) {
+                        movieModel.updateMovie(getUserInput());
+                        movieWindowController.updateTable();
+                        closeWindow();
+                    } else {
+                        lblStatus.setTextFill(Color.DARKRED);
+                        lblStatus.setText("Remember to give the movie a title");
+                    }
+                } else {
+                    // creating
+                    LocalDate currentDate = LocalDate.now();
+                    Movie movie = new Movie(Double.parseDouble(txtRating.getText()), txtTitle.getText(), txtFile.getText(), currentDate);
+                    movieModel.createMovie(movie);
+                    movieWindowController.addToTable(movie);
+                    closeWindow();
+                }
+        } catch (Exception e){
+            System.out.println("HEJ");
         }
-        else {
-            // creating
-            LocalDate currentDate = LocalDate.now();
-            updatedMovie = new Movie(Double.parseDouble(txtRating.getText()), txtTitle.getText(), txtFile.getText(), currentDate);
-            movieModel.createMovie(updatedMovie);
-            movieWindowController.addToTable(updatedMovie);
-        }
+    }
 
+    private void closeWindow(){
         selectedMovie = null;
         Stage stage = (Stage) txtTitle.getScene().getWindow();
         stage.close();
@@ -91,6 +107,11 @@ public class NewMovieWindowController {
 
     public void onActionLookUp(ActionEvent actionEvent) throws Exception {
         txtRating.setText(imdbRatingModel.searchImdbRating(txtTitle.getText()));
+    }
 
+    public void fillTextFields(Movie movie){
+        txtTitle.setText(movie.getTitle());
+        txtRating.setText(String.valueOf(movie.getImdbRating()));
+        txtFile.setText(movie.getFilePath());
     }
 }
