@@ -29,6 +29,7 @@ public class MovieModel {
 
     public void createMovie(Movie newMovie) throws Exception {
         movieManager.createMovie(newMovie);
+        observableMovies.add(newMovie);
     }
 
     public void updateMovie(Movie selectedMovie) throws Exception {
@@ -65,5 +66,10 @@ public class MovieModel {
         List<Movie> searchResults = movieManager.searchMovies(query);
         observableMovies.clear();
         observableMovies.addAll(searchResults);
+    }
+
+    public void addAllMoviesToObservable() throws Exception {
+        observableMovies.clear();
+        observableMovies.addAll(movieManager.getAllMovies());
     }
 }
