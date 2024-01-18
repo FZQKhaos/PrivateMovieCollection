@@ -165,13 +165,13 @@ public class MovieWindowController implements Initializable {
         }
     }
     
-    public void reminder(){
+    private void reminder(){
         if (!movieChecker().isEmpty()){
             alertBox("Reminder","Movies you might want to remove: " + movieChecker());
         }
     }
 
-    public List<Movie> movieChecker(){
+    private List<Movie> movieChecker(){
         List<Movie> moviesToRemove = new ArrayList<>();
 
         LocalDate expirationDate = LocalDate.now().minusYears(2);
