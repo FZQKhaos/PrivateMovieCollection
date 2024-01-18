@@ -12,7 +12,7 @@
    <children>
       <HBox alignment="CENTER_LEFT" prefHeight="34.0" prefWidth="199.0" spacing="5.0" VBox.vgrow="ALWAYS">
          <children>
-            <ComboBox fx:id="ShowCategory" prefWidth="150.0" promptText="Category" />
+            <ComboBox fx:id="cbShowCategory" prefWidth="150.0" promptText="Category" />
             <Button mnemonicParsing="false" onAction="#OnClearCategory" text="Clear Category" />
             <Button mnemonicParsing="false" onAction="#onActionAddRemoveCategory" text="+/-" />
             <TextField fx:id="txtSearchField" prefHeight="26.0" prefWidth="282.0" promptText="🔎 Search" />

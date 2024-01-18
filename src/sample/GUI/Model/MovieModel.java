@@ -72,4 +72,10 @@ public class MovieModel {
         observableMovies.clear();
         observableMovies.addAll(movieManager.getAllMovies());
     }
+
+    public void searchMoviesByCategory(String query, Category category) throws Exception{
+        List<Movie> searchResults = movieManager.searchMoviesByCategory(query, category);
+        observableMovies.clear();
+        observableMovies.addAll(searchResults);
+    }
 }

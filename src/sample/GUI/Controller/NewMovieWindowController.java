@@ -48,7 +48,6 @@ public class NewMovieWindowController {
         File selectedFile = fileChooser.showOpenDialog(stage);
 
         if (selectedFile != null){
-            txtTitle.setText(selectedFile.getName());
             txtFile.setText(selectedFile.getName());
         }
 

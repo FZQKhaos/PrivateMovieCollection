@@ -52,7 +52,7 @@ public class MovieWindowController implements Initializable {
     private TextField txtSearchField;
 
     @FXML
-    private ComboBox<Category> ShowCategory;
+    private ComboBox<Category> cbShowCategory;
 
     private final MovieModel movieModel;
 
@@ -89,11 +89,11 @@ public class MovieWindowController implements Initializable {
     private void showCategory() {
         try {
             ObservableList<Category> categories = FXCollections.observableArrayList(categoryModel.getAllCategories());
-            ShowCategory.setItems(categories);
+            cbShowCategory.setItems(categories);
 
-            ShowCategory.setOnAction(event -> {
+            cbShowCategory.setOnAction(event -> {
                 try {
-                    Category selectedCategory = ShowCategory.getValue();
+                    Category selectedCategory = cbShowCategory.getValue();
                     if (selectedCategory != null) {
                         movieModel.updateMoviesByCategory(selectedCategory);
                         addCategories();
@@ -140,14 +140,25 @@ public class MovieWindowController implements Initializable {
     }
 
     private void txfSearchBarListener() {
-        txtSearchField.textProperty().addListener((observableValue, oldValue, newValue) -> {
-            try {
-                movieModel.searchMovies(newValue);
-                addCategories();
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-        });
+        if (cbShowCategory == null) {
+            txtSearchField.textProperty().addListener((observableValue, oldValue, newValue) -> {
+                try {
+                    movieModel.searchMovies(newValue);
+                    addCategories();
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            });
+        } else {
+            txtSearchField.textProperty().addListener((observableValue, oldValue, newValue) -> {
+                try {
+                    movieModel.searchMoviesByCategory(newValue,cbShowCategory.getSelectionModel().getSelectedItem());
+                    addCategories();
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            });
+        }
     }
     private void playVideo(String filePath) {
         File file = new File(folder + filePath);
@@ -277,6 +288,6 @@ public class MovieWindowController implements Initializable {
     }
 
     public void OnClearCategory(ActionEvent actionEvent) {
-        ShowCategory.setValue(null);
+        cbShowCategory.setValue(null);
     }
 }

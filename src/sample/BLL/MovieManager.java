@@ -65,4 +65,9 @@ public class MovieManager {
         List<Movie> allMovies = getAllMovies();
         return movieSearcher.search(allMovies, query);
     }
+
+    public List<Movie> searchMoviesByCategory(String query, Category category) throws Exception {
+        List<Movie> moviesByCategory = getMoviesByCategory(category);
+        return movieSearcher.search(moviesByCategory, query);
+    }
 }
