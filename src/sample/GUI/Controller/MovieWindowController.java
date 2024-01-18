@@ -102,6 +102,7 @@ public class MovieWindowController implements Initializable {
                         movieModel.updateMoviesByCategory(selectedCategory);
                         addCategories();
                     } else {
+                        movieModel.addAllMoviesToObservable();
                         tblMovies.setItems(movieModel.getObservableMovies());
                     }
                 } catch (Exception e) {
@@ -256,5 +257,9 @@ public class MovieWindowController implements Initializable {
             controller.setSelectedMovie(selectedMovie);
             stage.show();
         }
+    }
+
+    public void OnClearCategory(ActionEvent actionEvent) {
+        ShowCategory.setValue(null);
     }
 }

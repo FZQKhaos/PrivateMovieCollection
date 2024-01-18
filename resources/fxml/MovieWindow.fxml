@@ -14,6 +14,7 @@
          <children>
             <Button fx:id="clearCatagory" mnemonicParsing="false" prefHeight="18.0" prefWidth="50.0" text="Clear" />
             <ComboBox fx:id="ShowCategory" prefWidth="150.0" promptText="Category" />
+            <Button mnemonicParsing="false" onAction="#OnClearCategory" text="Clear Category" />
             <Button mnemonicParsing="false" onAction="#onActionAddRemoveCategory" text="+/-" />
             <TextField fx:id="txtSearchField" prefHeight="26.0" prefWidth="282.0" promptText="🔎 Search" />
          </children>
