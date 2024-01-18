@@ -7,6 +7,7 @@ import javafx.scene.control.Button;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import sample.BE.Movie;
+import sample.GUI.Model.IMDBRatingModel;
 import sample.GUI.Model.MovieModel;
 
 import java.io.File;
@@ -17,8 +18,6 @@ public class NewMovieWindowController {
 
     @FXML
     private TextField txtRating, txtTitle, txtFile;
-    @FXML
-    private Button btnCancel;
 
     private MovieModel movieModel;
     private Movie selectedMovie;
@@ -26,8 +25,11 @@ public class NewMovieWindowController {
 
     private MovieWindowController movieWindowController;
 
+    private IMDBRatingModel imdbRatingModel;
+
     public NewMovieWindowController() throws Exception {
         movieModel = new MovieModel();
+        imdbRatingModel = new IMDBRatingModel();
     }
 
     public void setMovieWindowController(MovieWindowController movieWindowController){
@@ -52,10 +54,6 @@ public class NewMovieWindowController {
 
     }
 
-    public void onActionCancel(ActionEvent actionEvent) {
-        Stage stage = (Stage) btnCancel.getScene().getWindow();
-        stage.close();
-    }
 
     public void onActionSave(ActionEvent actionEvent) throws Exception {
 
@@ -93,4 +91,8 @@ public class NewMovieWindowController {
         selectedMovie = movie;
     }
 
+    public void onActionLookUp(ActionEvent actionEvent) throws Exception {
+        txtRating.setText(imdbRatingModel.searchImdbRating(txtTitle.getText()));
+
+    }
 }
