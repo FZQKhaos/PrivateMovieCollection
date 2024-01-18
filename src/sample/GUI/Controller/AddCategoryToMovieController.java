@@ -28,6 +28,7 @@ public class AddCategoryToMovieController implements Initializable {
 
     private MovieModel movieModel;
     private CategoryModel categoryModel;
+    private MovieWindowController movieWindowController;
 
     public AddCategoryToMovieController() throws Exception {
         movieModel = new MovieModel();
@@ -49,7 +50,13 @@ public class AddCategoryToMovieController implements Initializable {
         Category category = lstCategory.getSelectionModel().getSelectedItem();
 
         movieModel.addCategoryToMovie(movie, category);
+
+
         lblStatus.setTextFill(Color.DARKGREEN);
         lblStatus.setText("Category added to " + movie);
+    }
+
+    public void setMovieWindowController(MovieWindowController movieWindowController) {
+        this.movieWindowController = movieWindowController;
     }
 }

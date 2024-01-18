@@ -1,9 +1,6 @@
 package sample.GUI.Controller;
 
 
-import javafx.collections.transformation.FilteredList;
-import javafx.collections.transformation.SortedList;
-
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.scene.control.ComboBox;
@@ -23,7 +20,6 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import sample.BE.Category;
 import sample.BE.Movie;
-import sample.BLL.CategoryManager;
 import sample.GUI.Model.CategoryModel;
 import sample.GUI.Model.MovieModel;
 
@@ -204,9 +200,24 @@ public class MovieWindowController implements Initializable {
         }
     }
 
+    public void addToTable(Movie movie){
+        tblMovies.getItems().add(movie);
+    }
+
+    public void updateTable() throws Exception {
+        tblMovies.getItems().clear();
+        movieModel.addAllMoviesToObservable();
+        tblMovies.setItems(movieModel.getObservableMovies());
+    }
+
+
     public void onActionNewMovie(ActionEvent actionEvent) throws IOException {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/NewMovieWindow.fxml"));
         Parent root = loader.load();
+
+        NewMovieWindowController newMovieWindowController = loader.getController();
+        newMovieWindowController.setMovieWindowController(this);
+
         Stage stage = new Stage();
         stage.setScene(new Scene(root));
         stage.setResizable(false);
@@ -238,6 +249,10 @@ public class MovieWindowController implements Initializable {
     public void onActionAddCategoryToMovie(ActionEvent actionEvent) throws IOException {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/AddCategoryToMovieWindow.fxml"));
         Parent root = loader.load();
+
+        AddCategoryToMovieController addCategoryToMovieController = loader.getController();
+        addCategoryToMovieController.setMovieWindowController(this);
+
         Stage stage = new Stage();
         stage.setScene(new Scene(root));
         stage.setResizable(false);
@@ -253,7 +268,9 @@ public class MovieWindowController implements Initializable {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/NewMovieWindow.fxml"));
             Stage stage = new Stage();
             stage.setScene(new Scene(loader.load()));
+
             NewMovieWindowController controller = loader.getController();
+            controller.setMovieWindowController(this);
             controller.setSelectedMovie(selectedMovie);
             stage.show();
         }

@@ -28,7 +28,6 @@ public class NewCategoryWindow implements Initializable {
     private TextField txtCategory;
     private CategoryModel categoryModel;
 
-
     public NewCategoryWindow() throws Exception {
         categoryModel = new CategoryModel();
     }

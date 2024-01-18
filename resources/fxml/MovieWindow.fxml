@@ -8,11 +8,10 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 
-<VBox prefHeight="410.0" prefWidth="724.0" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.GUI.Controller.MovieWindowController">
+<VBox prefHeight="410.0" prefWidth="724.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.GUI.Controller.MovieWindowController">
    <children>
       <HBox alignment="CENTER_LEFT" prefHeight="34.0" prefWidth="199.0" spacing="5.0" VBox.vgrow="ALWAYS">
          <children>
-            <Button fx:id="clearCatagory" mnemonicParsing="false" prefHeight="18.0" prefWidth="50.0" text="Clear" />
             <ComboBox fx:id="ShowCategory" prefWidth="150.0" promptText="Category" />
             <Button mnemonicParsing="false" onAction="#OnClearCategory" text="Clear Category" />
             <Button mnemonicParsing="false" onAction="#onActionAddRemoveCategory" text="+/-" />

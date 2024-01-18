@@ -2,25 +2,15 @@ package sample.GUI.Controller;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
-import javafx.fxml.Initializable;
-import javafx.scene.Scene;
-import javafx.scene.control.ComboBox;
 import javafx.scene.control.TextField;
 import javafx.scene.control.Button;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
-import sample.BE.Category;
 import sample.BE.Movie;
-import sample.GUI.Model.CategoryModel;
 import sample.GUI.Model.MovieModel;
 
 import java.io.File;
-import java.io.IOException;
-import java.net.URL;
 import java.time.LocalDate;
-import java.util.ResourceBundle;
-import java.util.concurrent.TimeUnit;
 
 
 public class NewMovieWindowController {
@@ -34,8 +24,14 @@ public class NewMovieWindowController {
     private Movie selectedMovie;
     private Movie updatedMovie;
 
+    private MovieWindowController movieWindowController;
+
     public NewMovieWindowController() throws Exception {
         movieModel = new MovieModel();
+    }
+
+    public void setMovieWindowController(MovieWindowController movieWindowController){
+        this.movieWindowController = movieWindowController;
     }
 
     public void onActionChoose(ActionEvent actionEvent) {
@@ -66,12 +62,15 @@ public class NewMovieWindowController {
         if (selectedMovie != null) {
             // editing
             movieModel.updateMovie(getUserInput());
+            movieWindowController.addToTable(updatedMovie);
+            movieWindowController.updateTable();
         }
         else {
             // creating
             LocalDate currentDate = LocalDate.now();
             updatedMovie = new Movie(Double.parseDouble(txtRating.getText()), txtTitle.getText(), txtFile.getText(), currentDate);
             movieModel.createMovie(updatedMovie);
+            movieWindowController.addToTable(updatedMovie);
         }
 
         selectedMovie = null;
