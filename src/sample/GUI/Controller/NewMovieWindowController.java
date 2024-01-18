@@ -59,7 +59,6 @@ public class NewMovieWindowController {
         if (selectedMovie != null) {
             // editing
             movieModel.updateMovie(getUserInput());
-            movieWindowController.addToTable(updatedMovie);
             movieWindowController.updateTable();
         }
         else {

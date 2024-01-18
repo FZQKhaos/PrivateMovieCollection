@@ -29,7 +29,6 @@ public class UserRatingController implements Initializable {
 
     public UserRatingController() throws Exception {
         movieModel = new MovieModel();
-        movieWindowController = new MovieWindowController();
     }
 
     @Override
@@ -43,11 +42,16 @@ public class UserRatingController implements Initializable {
         if (newUserRating <= 10 && newUserRating > 0) {
             selectedMovie.setUserRating(newUserRating);
             movieModel.updateMovie(selectedMovie);
+            movieWindowController.updateTable();
             lblStatus.setTextFill(Color.DARKGREEN);
             lblStatus.setText("User rating updated for: " + selectedMovie.getTitle());
         } else {
             lblStatus.setTextFill(Color.DARKRED);
             lblStatus.setText("User rating cant be higher than 10 or lower than 0");
         }
+    }
+
+    public void setMovieWindowController(MovieWindowController movieWindowController) {
+        this.movieWindowController = movieWindowController;
     }
 }

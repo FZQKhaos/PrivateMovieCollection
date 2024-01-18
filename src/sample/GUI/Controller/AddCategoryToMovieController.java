@@ -50,6 +50,8 @@ public class AddCategoryToMovieController implements Initializable {
         Category category = lstCategory.getSelectionModel().getSelectedItem();
 
         movieModel.addCategoryToMovie(movie, category);
+        movieWindowController.updateCategories(movie, category);
+
 
 
         lblStatus.setTextFill(Color.DARKGREEN);

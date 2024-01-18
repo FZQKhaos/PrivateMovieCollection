@@ -86,6 +86,16 @@ public class MovieWindowController implements Initializable {
         }
     }
 
+    public void updateCategories(Movie movie, Category category){
+        try {
+            List<Category> categories = movieModel.getMovieCategories(movie);
+            categories.add(category);
+
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+    }
+
     private void showCategory() {
         try {
             ObservableList<Category> categories = FXCollections.observableArrayList(categoryModel.getAllCategories());
@@ -250,6 +260,10 @@ public class MovieWindowController implements Initializable {
     public void onActionAddEditUR(ActionEvent actionEvent) throws IOException {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/UserRating.fxml"));
         Parent root = loader.load();
+
+        UserRatingController userRatingController = loader.getController();
+        userRatingController.setMovieWindowController(this);
+
         Stage stage = new Stage();
         stage.setScene(new Scene(root));
 
