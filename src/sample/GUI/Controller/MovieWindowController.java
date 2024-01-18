@@ -1,8 +1,13 @@
 package sample.GUI.Controller;
 
 
-import javafx.collections.transformation.FilteredList;
-import javafx.collections.transformation.SortedList;
+import javafx.scene.control.Slider;
+import javafx.animation.KeyFrame;
+import javafx.animation.Timeline;
+import javafx.util.Duration;
+import javafx.scene.control.Label;
+import javafx.scene.layout.HBox;
+import javafx.scene.layout.VBox;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -32,8 +37,6 @@ import sample.BE.Movie;
 import sample.BLL.CategoryManager;
 import sample.GUI.Model.MovieModel;
 
-import java.awt.*;
-import java.io.File;
 import java.io.IOException;
 import java.net.URL;
 
@@ -85,8 +88,8 @@ public class MovieWindowController implements Initializable {
         showCategory();
     }
 
-    private void addCategories(){
-        for (Movie movie: movieModel.getObservableMovies()){
+    private void addCategories() {
+        for (Movie movie : movieModel.getObservableMovies()) {
             try {
                 movieModel.getMovieCategories(movie);
             } catch (Exception e) {
@@ -118,7 +121,7 @@ public class MovieWindowController implements Initializable {
         }
     }
 
-    private void enableDoubleClick(){
+    private void enableDoubleClick() {
         tblMovies.setOnMouseClicked(event -> {
             if (event.getButton().equals(MouseButton.PRIMARY) && event.getClickCount() == 2) {
                 Movie selectedMovie = tblMovies.getSelectionModel().getSelectedItem();
@@ -138,7 +141,7 @@ public class MovieWindowController implements Initializable {
 
     }
 
-    private void setupMovieTableView(){
+    private void setupMovieTableView() {
         colTitle.setCellValueFactory(new PropertyValueFactory<>("title"));
         colCategory.setCellValueFactory(new PropertyValueFactory<>("categories"));
         colIR.setCellValueFactory(new PropertyValueFactory<>("imdbRating"));
@@ -157,6 +160,20 @@ public class MovieWindowController implements Initializable {
             }
         });
     }
+
+    private String formatDuration(Duration duration) {
+        int minutes = (int) duration.toMinutes();
+        int seconds = (int) (duration.toSeconds() % 60);
+        return String.format("%d:%02d", minutes, seconds);
+    }
+
+    private String formatTimeRemaining(Duration totalDuration, Duration currentTime) {
+        Duration remainingTime = totalDuration.subtract(currentTime);
+        int minutes = (int) remainingTime.toMinutes();
+        int seconds = (int) (remainingTime.toSeconds() % 60);
+        return String.format("-%d:%02d", minutes, seconds);
+    }
+
     private void playVideo(String filePath) {
         File file = new File(folder + filePath);
         if (file.exists()) {
@@ -164,6 +181,36 @@ public class MovieWindowController implements Initializable {
             Media media = new Media(videoPath);
             MediaPlayer mediaPlayer = new MediaPlayer(media);
             MediaView mediaView = new MediaView(mediaPlayer);
+
+            Slider timeSlider = new Slider();
+            timeSlider.setMin(0);
+            timeSlider.setMax(mediaPlayer.getTotalDuration().toSeconds());
+
+            Label currentTimeLabel = new Label("0:00");
+            Label totalTimeLabel = new Label(formatDuration(mediaPlayer.getTotalDuration()));
+
+
+            Timeline timeline = new Timeline(
+                    new KeyFrame(Duration.seconds(1), event -> {
+                        double currentTime = mediaPlayer.getCurrentTime().toSeconds();
+                        timeSlider.setValue(currentTime);
+                        currentTimeLabel.setText(formatDuration(Duration.seconds(currentTime)));
+                        totalTimeLabel.setText(formatTimeRemaining(mediaPlayer.getTotalDuration(), mediaPlayer.getCurrentTime()));
+                    })
+            );
+            timeline.setCycleCount(Timeline.INDEFINITE);
+            timeline.play();
+
+
+            timeSlider.valueProperty().addListener((observable, oldValue, newValue) -> {
+                if (timeSlider.isValueChanging()) {
+                    mediaPlayer.seek(Duration.seconds(newValue.doubleValue()));
+                }
+            });
+
+            timeSlider.setOnMouseClicked(event -> {
+                mediaPlayer.seek(Duration.seconds(timeSlider.getValue()));
+            });
 
             Button playPauseButton = new Button("Play/Pause");
             playPauseButton.setOnAction(e -> {
@@ -173,12 +220,16 @@ public class MovieWindowController implements Initializable {
                     mediaPlayer.play();
                 }
             });
+
+            HBox controlBox = new HBox(playPauseButton, timeSlider, currentTimeLabel, totalTimeLabel);
+            controlBox.setAlignment(Pos.BOTTOM_CENTER);
+            controlBox.setSpacing(10);
+
             StackPane root = new StackPane();
-            root.getChildren().addAll(mediaView, playPauseButton);
-            StackPane.setAlignment(playPauseButton, Pos.BOTTOM_CENTER);
+            root.getChildren().addAll(mediaView, controlBox);
 
             Stage videoStage = new Stage();
-            videoStage.setScene(new Scene(root, 1850, 1000));
+            videoStage.setScene(new Scene(root, 800, 600));
             videoStage.setTitle("Video Player");
             videoStage.show();
 
@@ -187,6 +238,8 @@ public class MovieWindowController implements Initializable {
             System.out.println("File does not exist: " + filePath);
         }
     }
+
+
 
     public void reminder(){
         if (!movieChecker().isEmpty()){
