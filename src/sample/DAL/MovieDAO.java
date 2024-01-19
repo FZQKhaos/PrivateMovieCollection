@@ -1,6 +1,5 @@
 package sample.DAL;
 
-import com.microsoft.sqlserver.jdbc.SQLServerException;
 import sample.BE.Category;
 import sample.BE.Movie;
 

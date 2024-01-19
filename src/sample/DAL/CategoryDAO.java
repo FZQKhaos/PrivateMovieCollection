@@ -77,29 +77,6 @@ public class CategoryDAO {
         }
     }
 
-    public void updateCategory(Category category) throws Exception {
-        // SQL command
-        String sql = "UPDATE dbo.Category SET name = ? WHERE Id = ?";
-
-        //
-        try (Connection conn = databaseConnector.getConnection();
-             PreparedStatement stmt = conn.prepareStatement(sql))
-        {
-            // Bind parameters
-            stmt.setString(1, category.getName());
-
-            stmt.setInt(2, category.getId());
-
-            // Run the specified SQL statement
-            stmt.executeUpdate();
-        }
-        catch (SQLException ex)
-        {
-            ex.printStackTrace();
-            throw new Exception("Could not update category", ex);
-        }
-    }
-
     public void deleteCategory(Category category) throws Exception {
         // SQL command
         String sql = "DELETE FROM dbo.Category WHERE ID = (?);";

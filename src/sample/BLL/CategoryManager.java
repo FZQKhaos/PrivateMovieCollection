@@ -20,10 +20,6 @@ public class CategoryManager {
         return categoryDAO.createCategory(newCategory);
     }
 
-    public void updateCategory(Category selectedCategory) throws Exception{
-        categoryDAO.updateCategory(selectedCategory);
-    }
-
     public void deleteCategory(Category selectedCategory) throws Exception {
         categoryDAO.deleteCategory(selectedCategory);
     }

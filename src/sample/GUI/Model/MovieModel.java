@@ -49,9 +49,6 @@ public class MovieModel {
         movieManager.addCategoryToMovie(movie, category);
     }
 
-   public List <Movie>getMovieByCategory(Category category) throws Exception{
-        return movieManager.getMoviesByCategory(category);
-   }
     public void updateMoviesByCategory(Category category) {
         try {
             List<Movie> moviesByCategory = movieManager.getMoviesByCategory(category);

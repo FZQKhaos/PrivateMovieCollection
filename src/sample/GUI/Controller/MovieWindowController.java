@@ -131,6 +131,7 @@ public class MovieWindowController implements Initializable {
                         LocalDate currentDate = LocalDate.now();
                         selectedMovie.setLastView(currentDate);
                         movieModel.updateMovie(selectedMovie);
+                        updateTable();
                     } catch (Exception e) {
                         throw new RuntimeException(e);
                     }
@@ -229,6 +230,8 @@ public class MovieWindowController implements Initializable {
         tblMovies.getItems().clear();
         movieModel.addAllMoviesToObservable();
         tblMovies.setItems(movieModel.getObservableMovies());
+        tblMovies.refresh();
+        addCategories();
     }
 
 
@@ -247,16 +250,6 @@ public class MovieWindowController implements Initializable {
         stage.show();
     }
 
-    public void onActionAddRemoveCategory(ActionEvent actionEvent) throws IOException {
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/NewCategoryWindow.fxml"));
-        Parent root = loader.load();
-        Stage stage = new Stage();
-        stage.setScene(new Scene(root));
-
-        stage.setTitle("Add category");
-        stage.show();
-    }
-
     public void onActionAddEditUR(ActionEvent actionEvent) throws IOException {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/UserRating.fxml"));
         Parent root = loader.load();
@@ -268,6 +261,16 @@ public class MovieWindowController implements Initializable {
         stage.setScene(new Scene(root));
 
         stage.setTitle("Add/Edit User Rating");
+        stage.show();
+    }
+
+    public void onActionAddRemoveCategory(ActionEvent actionEvent) throws IOException {
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/NewCategoryWindow.fxml"));
+        Parent root = loader.load();
+        Stage stage = new Stage();
+        stage.setScene(new Scene(root));
+
+        stage.setTitle("Add category");
         stage.show();
     }
 
@@ -304,5 +307,6 @@ public class MovieWindowController implements Initializable {
 
     public void OnClearCategory(ActionEvent actionEvent) {
         cbShowCategory.setValue(null);
+        addCategories();
     }
 }

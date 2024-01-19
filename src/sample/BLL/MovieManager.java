@@ -25,6 +25,7 @@ public class MovieManager {
             allMovies = movieDAO.getAllMovies();
             shouldUpdate = false;
         }
+
         return allMovies;
     }
 
@@ -51,10 +52,12 @@ public class MovieManager {
     }
 
     public void deleteMovieCategory(Movie selectedMovie) throws Exception {
+        shouldUpdate = true;
         movieDAO.deleteMovieCategory(selectedMovie);
     }
 
     public void addCategoryToMovie(Movie movie, Category category) throws Exception {
+        shouldUpdate = true;
         movieDAO.addCategoryToMovie(movie, category);
     }
 

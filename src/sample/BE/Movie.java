@@ -4,7 +4,6 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
-import java.util.stream.Collectors;
 
 public class Movie {
     private int id;
@@ -43,10 +42,6 @@ public class Movie {
     }
     public int getId() {
         return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
     }
 
     public double getImdbRating() {
@@ -95,10 +90,6 @@ public class Movie {
         }
     }
 
-    public void deleteCategoryFromMovie(Category category) {
-            categories.remove(category);
-    }
-
     public void setAllCategories(List<Category> categories){
         this.categories.addAll(categories);
     }
@@ -111,6 +102,7 @@ public class Movie {
     public String toString() {
         return title;
     }
+
     @Override
     public boolean equals(Object obj) {
         if (this == obj) return true;

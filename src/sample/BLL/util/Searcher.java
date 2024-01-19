@@ -1,6 +1,5 @@
 package sample.BLL.util;
 
-import sample.BE.Category;
 import sample.BE.Movie;
 
 import java.util.ArrayList;

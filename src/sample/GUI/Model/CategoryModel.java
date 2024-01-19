@@ -5,7 +5,6 @@ import javafx.collections.ObservableList;
 import sample.BE.Category;
 import sample.BLL.CategoryManager;
 
-import java.io.IOException;
 import java.util.List;
 
 public class CategoryModel {
@@ -20,7 +19,7 @@ public class CategoryModel {
         observableCategories.addAll(categoryManager.getAllCategories());
     }
 
-    public ObservableList<Category> getObservableCategories() throws Exception {
+    public ObservableList<Category> getObservableCategories() {
         return observableCategories;
     }
 
@@ -30,10 +29,6 @@ public class CategoryModel {
 
     public Category createCategory(Category newCategory) throws Exception {
         return categoryManager.createCategory(newCategory);
-    }
-
-    public void updateCategory(Category selectedCategory) throws Exception{
-        categoryManager.updateCategory(selectedCategory);
     }
 
     public void deleteCategory(Category selectedCategory) throws Exception {
