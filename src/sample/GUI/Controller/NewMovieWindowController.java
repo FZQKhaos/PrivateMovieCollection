@@ -80,7 +80,7 @@ public class NewMovieWindowController {
                     closeWindow();
                 }
         } catch (Exception e){
-            System.out.println("HEJ");
+            lblStatus.setText("Fill out all text fields");
         }
     }
 

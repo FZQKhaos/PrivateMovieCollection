@@ -8,6 +8,7 @@ import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
 import java.nio.charset.StandardCharsets;
+import java.util.Arrays;
 import java.util.Properties;
 
 public class TMDBConnector {
@@ -42,8 +43,8 @@ public class TMDBConnector {
     }
 
     private static String getImdbRating(String responseBody){
-        String[] firstMovie = (responseBody.split("}"));
-        String[] vote_average = firstMovie[0].split("vote_average");
+        String[] allMovies = (responseBody.split("}"));
+        String[] vote_average = allMovies[0].split("vote_average");
         return (vote_average[1].substring(2,5));
     }
 }
