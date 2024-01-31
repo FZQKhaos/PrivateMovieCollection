@@ -41,7 +41,7 @@ public class TMDBConnector {
         }
     }
 
-    private static String getImdbRating(String responseBody){
+    private String getImdbRating(String responseBody){
         String[] allMovies = (responseBody.split("}"));
         String[] vote_average = allMovies[0].split("vote_average");
         return (vote_average[1].substring(2,5));

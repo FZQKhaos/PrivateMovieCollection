@@ -309,4 +309,16 @@ public class MovieWindowController implements Initializable {
         cbShowCategory.setValue(null);
         addCategories();
     }
+
+    public void onActionOpenCharts(ActionEvent actionEvent) throws IOException {
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/ChartWindow.fxml"));
+        Parent root = loader.load();
+
+        Stage stage = new Stage();
+        stage.setScene(new Scene(root));
+        stage.setResizable(false);
+
+        stage.setTitle("Charts");
+        stage.show();
+    }
 }
